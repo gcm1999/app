@@ -1,15 +1,17 @@
 <template>
    <div>
+    <Header></Header>
       根组件
    </div>
 </template>
 <script>
+//引入
+import Header from './components/Header'
 export default {
-  data () {
-    return {
-
-    }
-  }
+  name: '',
+  components: {
+    Header,
+},
 }
 </script>
 <style scoped>
