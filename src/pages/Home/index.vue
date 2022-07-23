@@ -3,6 +3,8 @@
     <!-- <h1>首页</h1> -->
     <!-- 三级联动全局组件 -->
     <TypeNav></TypeNav>
+
+    
     <ListContainer></ListContainer>
     <Recommend></Recommend>
     <Rank></Rank>
@@ -20,7 +22,7 @@ import Like from "@/pages/Home/Like";
 import Floor from "@/pages/Home/Floor";
 import Brand from "@/pages/Home/Brand";
 export default {
-  name: "TypeNav",
+  name: "",
   data() {
     return {};
   },
