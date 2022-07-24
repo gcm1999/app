@@ -6,7 +6,7 @@ import requests from "./requests";
 
 export const reqCategoryList = () => {
     // 发请求
-    requests({
+    return requests({
         url: '/product/getBaseCategoryList',
         method:'get',
     });
