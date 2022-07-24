@@ -1,6 +1,7 @@
 <template>
   <!-- 商品分类导航 -->
   <div class="type-nav">
+    <!-- {{categoryList}} -->
     <div class="container">
       <h2 class="all">全部商品分类</h2>
       <nav class="nav">
@@ -15,11 +16,14 @@
       </nav>
       <div class="sort">
         <div class="all-sort-list2">
+
           <div class="item bo">
             <h3>
-              <a href="">图书、音像、数字商品</a>
+              <!-- <a href="">图书、音像、数字商品</a> -->
+              <a href="">{{categoryList[0].categoryName}}</a>
             </h3>
             <div class="item-list clearfix">
+
               <div class="subitem">
                 <dl class="fore">
                   <dt>
@@ -1692,13 +1696,19 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 export default {
   name: "TypeNav",
   //   组件挂载完毕：可以向服务器发请求
-    mounted() {
+  mounted() {
     // 通知vuex发请求，获取数据，存储与仓库中
-    
+    this.$store.dispatch("categoryList");
   },
+  computed: {
+    ...mapState({
+      categoryList: state => state.home.categoryList,
+    })
+  }
 };
 </script>
 <style scoped>
