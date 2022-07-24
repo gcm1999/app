@@ -21,10 +21,13 @@ import Rank from "@/pages/Home/Rank";
 import Like from "@/pages/Home/Like";
 import Floor from "@/pages/Home/Floor";
 import Brand from "@/pages/Home/Brand";
+import { reqCategoryList } from '@/api/index.js';
+reqCategoryList().then(msg=>console.log(msg));
 export default {
   name: "",
   data() {
-    return {};
+    return {
+    };
   },
   components: {
     ListContainer,
