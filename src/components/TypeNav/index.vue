@@ -16,22 +16,28 @@
       </nav>
       <div class="sort">
         <div class="all-sort-list2">
-
-          <div v-for="c1 in categoryList" :key="c1.categoryId" class="item bo">
+          <div @mouseleave="changeIndex(-1)" :class="{cur:currentIndex==index}" @mouseenter="changeIndex(index)" v-for="(c1,index) in categoryList" :key="c1.categoryId" class="item bo">
             <h3>
               <!-- <a href="">图书、音像、数字商品</a> -->
-              <a href="">{{c1.categoryName}}</a>
+              <a href="">{{ c1.categoryName }}</a>
             </h3>
             <div class="item-list clearfix">
-
-              <div v-for="c2 in c1.categoryChild" :key="c2.categoryId" class="subitem">
+              <div
+                v-for="c2 in c1.categoryChild"
+                :key="c2.categoryId"
+                class="subitem"
+              >
                 <dl class="fore">
                   <dt>
-                    <a href="">{{c2.categoryName}}</a>
+                    <a href="">{{ c2.categoryName }}</a>
                   </dt>
                   <dd>
-                    <em  v-for="c3 in c2.categoryChild" :key="c3.categoryId" v-show="!c3.categoryName.match('你')">
-                      <a href="" >{{c3.categoryName}}</a>
+                    <em
+                      v-for="c3 in c2.categoryChild"
+                      :key="c3.categoryId"
+                      v-show="!c3.categoryName.match('你')"
+                    >
+                      <a href="">{{ c3.categoryName }}</a>
                     </em>
                   </dd>
                 </dl>
@@ -1687,22 +1693,40 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
   name: "TypeNav",
+
+  data() {
+    return {
+      currentIndex:-1,
+    };
+  },
+
   //   组件挂载完毕：可以向服务器发请求
   mounted() {
     // 通知vuex发请求，获取数据，存储与仓库中
     this.$store.dispatch("categoryList");
   },
+
   computed: {
     ...mapState({
-      categoryList: state => state.home.categoryList,
-    })
-  }
+      categoryList: (state) => state.home.categoryList,
+    }),
+  },
+
+  methods: {
+    changeIndex(index) {
+      this.currentIndex = index;
+      // alert(this.currentIndex)
+    }
+  },
 };
 </script>
 <style scoped>
+.cur{
+  background-color: skyblue;
+}
 .type-nav {
   border-bottom: 2px solid #e1251b;
 }
