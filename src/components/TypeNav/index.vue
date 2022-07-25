@@ -21,7 +21,7 @@
               <!-- <a href="">图书、音像、数字商品</a> -->
               <a href="">{{ c1.categoryName }}</a>
             </h3>
-            <div class="item-list clearfix">
+            <div class="item-list clearfix" :style="{ display:currentIndex==index?'block':'none' }">
               <div
                 v-for="c2 in c1.categoryChild"
                 :key="c2.categoryId"
@@ -1820,7 +1820,7 @@ export default {
   margin-top: 5px;
   border-left: 1px solid #ccc;
 }
-.type-nav .container .sort .all-sort-list2 .item:hover .item-list {
+/* .type-nav .container .sort .all-sort-list2 .item:hover .item-list {
   display: block;
-}
+} */
 </style>
