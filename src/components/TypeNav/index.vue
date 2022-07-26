@@ -15,13 +15,28 @@
         <a href="###">秒杀</a>
       </nav>
       <div class="sort">
-        <div class="all-sort-list2">
-          <div @mouseleave="changeIndex(-1)" :class="{cur:currentIndex==index}" @mouseenter="changeIndex(index)" v-for="(c1,index) in categoryList" :key="c1.categoryId" class="item bo">
+        <div class="all-sort-list2" @click="goSearch">
+          <div
+            @mouseleave="changeIndex(-1)"
+            :class="{ cur: currentIndex == index }"
+            @mouseenter="changeIndex(index)"
+            v-for="(c1, index) in categoryList"
+            :key="c1.categoryId"
+            class="item bo"
+          >
             <h3>
               <!-- <a href="">图书、音像、数字商品</a> -->
-              <a href="">{{ c1.categoryName }}</a>
+              <a
+                :data-categoryName="c1.categoryName"
+                :data-category1Id="c1.categoryId"
+                >{{ c1.categoryName }}</a
+              >
+              <!-- <router-link to="/search">{{ c1.categoryName }}</router-link> -->
             </h3>
-            <div class="item-list clearfix" :style="{ display:currentIndex==index?'block':'none' }">
+            <div
+              class="item-list clearfix"
+              :style="{ display: currentIndex == index ? 'block' : 'none' }"
+            >
               <div
                 v-for="c2 in c1.categoryChild"
                 :key="c2.categoryId"
@@ -29,7 +44,11 @@
               >
                 <dl class="fore">
                   <dt>
-                    <a href="">{{ c2.categoryName }}</a>
+                    <a
+                      :data-categoryName="c2.categoryName"
+                      :data-category2Id="c2.categoryId"
+                      >{{ c2.categoryName }}</a
+                    >
                   </dt>
                   <dd>
                     <em
@@ -37,7 +56,11 @@
                       :key="c3.categoryId"
                       v-show="!c3.categoryName.match('你')"
                     >
-                      <a href="">{{ c3.categoryName }}</a>
+                      <a
+                        :data-categoryName="c3.categoryName"
+                        :data-category3Id="c3.categoryId"
+                        >{{ c3.categoryName }}</a
+                      >
                     </em>
                   </dd>
                 </dl>
@@ -1699,7 +1722,7 @@ export default {
 
   data() {
     return {
-      currentIndex:-1,
+      currentIndex: -1,
     };
   },
 
@@ -1719,12 +1742,38 @@ export default {
     changeIndex(index) {
       this.currentIndex = index;
       // alert(this.currentIndex)
-    }
+    },
+    goSearch(e) {
+      // this.$router.push('/search')
+      // console.log(e.target.dataset);
+      // 获取当前点击节点对象
+      let ele = e.target;
+      // dataset获取节点的自定义属性,***注意小写***
+      let { categoryname, category1id, category2id, category3id } = ele.dataset;
+
+      if (categoryname) {
+
+        let location = { name: "search" };
+        let query = { categoryName: categoryname };
+
+        if (category1id) {
+          query.category1Id = category1id;
+        } else if (category2id) {
+          query.category2Id = category2id;
+        } else {
+          query.category3Id = category3id;
+        }
+
+        location.query = query;
+        // console.log(location);
+        this.$router.push(location);
+      }
+    },
   },
 };
 </script>
 <style scoped>
-.cur{
+.cur {
   background-color: skyblue;
 }
 .type-nav {
