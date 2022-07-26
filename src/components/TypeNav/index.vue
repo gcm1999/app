@@ -2,8 +2,8 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <!-- {{categoryList}} -->
-    <div class="container" @mouseleave="mLeave" @mouseenter="changeShow">
-      <h2 class="all" >全部商品分类</h2>
+    <div class="container" @mouseleave="mLeave" >
+      <h2 class="all" @mouseenter="changeShow">全部商品分类</h2>
       <div class="sort"  v-show="show">
         <div class="all-sort-list2" @click="goSearch">
           <div
@@ -1724,14 +1724,14 @@ export default {
   data() {
     return {
       currentIndex: -1,
-      show: false,
+      show: true,
     };
   },
 
   //   组件挂载完毕：可以向服务器发请求
   mounted() {
-    if (this.$route.path != "/search") {
-        this.show = true;
+    if (this.$route.name == "search") {
+        this.show = false;
       }
     // 放到根组件中
     // 通知vuex发请求，获取数据，存储与仓库中
@@ -1779,12 +1779,12 @@ export default {
     },
     mLeave() {
       this.currentIndex = -1;
-      if(this.$route.path == "/search"){
+      if(this.$route.name == "search"){
         this.show = false;
       }
     },
     changeShow() {
-      if (this.$route.path == "/search") {
+      if (this.$route.name == "search") {
         this.show = true;
       }
     }
