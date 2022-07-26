@@ -1728,8 +1728,9 @@ export default {
 
   //   组件挂载完毕：可以向服务器发请求
   mounted() {
+    // 放到根组件中
     // 通知vuex发请求，获取数据，存储与仓库中
-    this.$store.dispatch("categoryList");
+    // this.$store.dispatch("categoryList");
   },
 
   computed: {
