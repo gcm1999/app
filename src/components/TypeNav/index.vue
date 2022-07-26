@@ -2,27 +2,17 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <!-- {{categoryList}} -->
-    <div class="container">
-      <h2 class="all">全部商品分类</h2>
-      <nav class="nav">
-        <a href="###">服装城</a>
-        <a href="###">美妆馆</a>
-        <a href="###">尚品汇超市</a>
-        <a href="###">全球购</a>
-        <a href="###">闪购</a>
-        <a href="###">团购</a>
-        <a href="###">有趣</a>
-        <a href="###">秒杀</a>
-      </nav>
-      <div class="sort">
+    <div class="container" @mouseleave="mLeave" @mouseenter="changeShow">
+      <h2 class="all" >全部商品分类</h2>
+      <div class="sort"  v-show="show">
         <div class="all-sort-list2" @click="goSearch">
           <div
-            @mouseleave="changeIndex(-1)"
+            
             :class="{ cur: currentIndex == index }"
             @mouseenter="changeIndex(index)"
             v-for="(c1, index) in categoryList"
             :key="c1.categoryId"
-            class="item bo"
+            class="item"
           >
             <h3>
               <!-- <a href="">图书、音像、数字商品</a> -->
@@ -1712,6 +1702,17 @@
           </div> -->
         </div>
       </div>
+      <nav class="nav">
+        <a href="###">服装城</a>
+        <a href="###">美妆馆</a>
+        <a href="###">尚品汇超市</a>
+        <a href="###">全球购</a>
+        <a href="###">闪购</a>
+        <a href="###">团购</a>
+        <a href="###">有趣</a>
+        <a href="###">秒杀</a>
+      </nav>
+      
     </div>
   </div>
 </template>
@@ -1723,11 +1724,15 @@ export default {
   data() {
     return {
       currentIndex: -1,
+      show: false,
     };
   },
 
   //   组件挂载完毕：可以向服务器发请求
   mounted() {
+    if (this.$route.path != "/search") {
+        this.show = true;
+      }
     // 放到根组件中
     // 通知vuex发请求，获取数据，存储与仓库中
     // this.$store.dispatch("categoryList");
@@ -1764,12 +1769,25 @@ export default {
         } else {
           query.category3Id = category3id;
         }
-
+        if (this.$route.params) {
+          location.params = this.$route.params;
+        }
         location.query = query;
         // console.log(location);
         this.$router.push(location);
       }
     },
+    mLeave() {
+      this.currentIndex = -1;
+      if(this.$route.path == "/search"){
+        this.show = false;
+      }
+    },
+    changeShow() {
+      if (this.$route.path == "/search") {
+        this.show = true;
+      }
+    }
   },
 };
 </script>
