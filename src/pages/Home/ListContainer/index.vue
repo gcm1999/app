@@ -100,8 +100,18 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "ListContainer",
+  mounted() {
+    this.$store.dispatch("mockBannerList");
+  },
+  computed: {
+    ...mapState({
+      mockBannerList: state=>state.home.mockBannerList,
+    }),
+  },
 };
 </script>
 <style scoped>

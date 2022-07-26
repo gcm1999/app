@@ -1,27 +1,39 @@
 // home小仓库
 
-import { reqCategoryList } from "@/api/index.js";
+import { mockReqBannerList, reqCategoryList } from "@/api/index.js";
 // state:仓库存储数据的地方
 const state = {
   categoryList: [],
+  mockBannerList:[],
 };
 // mutations:修改state的唯一手段
 const mutations = {
-    categoryList(state, categoryList) {
-        state.categoryList = categoryList;
-    }
+  categoryList(state, categoryList) {
+    state.categoryList = categoryList;
+  },
+  mockBannerList(state, mockBannerList) {
+    state.mockBannerList = mockBannerList;
+
+  },
 };
 // action:处理action，可以书写自己的业务逻辑，也可以处理异步
 const actions = {
-    async categoryList(context) {
-        // context.commit("categoryList");
+  async categoryList(context) {
+    // context.commit("categoryList");
     let res = await reqCategoryList();
     // console.log(res);
     if (res.code == 200) {
-         context.commit("categoryList", res.data);
+      context.commit("categoryList", res.data);
     }
   },
-   
+  async mockBannerList({ commit }) {
+    let res = await mockReqBannerList();
+    if (res.code == 200) {
+      console.log(res);
+      
+      commit("mockBannerList",res.data)
+    }
+  }
 };
 // getters:理解为计算属性，用于简化仓库数据，让组件获取仓库数据更加方便
 const getters = {};

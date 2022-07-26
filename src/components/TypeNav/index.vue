@@ -1740,6 +1740,7 @@ export default {
 
   computed: {
     ...mapState({
+      // 获取仓库中的数据
       categoryList: (state) => state.home.categoryList,
     }),
   },
