@@ -110,7 +110,8 @@ import Swiper from 'swiper';
 export default {
   name: "Floor",
   mounted() {
-    this.$store.dispatch("getMockReqFloorList");
+    // 在home中触发
+    // this.$store.dispatch("getMockReqFloorList");
   },
   computed: {
     ...mapState({

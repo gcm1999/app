@@ -28,6 +28,9 @@ export default {
     return {
     };
   },
+  mounted() {
+    this.$store.dispatch("getMockReqFloorList");
+  },
   components: {
     ListContainer,
     Recommend,
