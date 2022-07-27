@@ -6,7 +6,11 @@
         <!--banner轮播-->
         <div class="swiper-container" id="mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="(carouse,index) in mockBannerList" :key="carouse.id">
+            <div
+              class="swiper-slide"
+              v-for="(carouse, index) in mockBannerList"
+              :key="carouse.id"
+            >
               <!-- <img src="./images/banner1.jpg" /> -->
               <img :src="carouse.imgUrl" />
             </div>
@@ -104,52 +108,48 @@
 import { mapState } from "vuex";
 
 // 引入swiper包
-import Swiper from "swiper"
+import Swiper from "swiper";
 export default {
   name: "ListContainer",
   mounted() {
     this.$store.dispatch("mockBannerList");
-    
   },
   computed: {
     ...mapState({
-      mockBannerList: state=>state.home.mockBannerList,
+      mockBannerList: (state) => state.home.mockBannerList,
     }),
-
   },
   watch: {
-    
     mockBannerList: {
       // // 监视mockBannerList属性发生变化，但不能保证dom已经遍历完毕
       handler(newValue, oldValue) {
-
-        // 
+        //
         this.$nextTick(() => {
           var mySwiper = new Swiper(".swiper-container", {
-        // direction: "vertical", // 垂直切换选项
-        loop: true, // 循环模式选项
+            // direction: "vertical", // 垂直切换选项
+            loop: true, // 循环模式选项
 
-        // 如果需要分页器
-        pagination: {
-          el: ".swiper-pagination",
-          clickable:true,
-        },
+            // 如果需要分页器
+            pagination: {
+              el: ".swiper-pagination",
+              clickable: true,
+            },
 
-        // 如果需要前进后退按钮
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
+            // 如果需要前进后退按钮
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
 
-        // 如果需要滚动条
-        scrollbar: {
-          el: ".swiper-scrollbar",
-        },
-      });
-        })
-      }
-    }
-  }
+            // 如果需要滚动条
+            scrollbar: {
+              el: ".swiper-scrollbar",
+            },
+          });
+        });
+      },
+    },
+  },
 };
 </script>
 <style scoped>

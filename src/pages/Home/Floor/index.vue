@@ -1,15 +1,16 @@
 <template>
   <!--楼层-->
-  <div class="floor">
+  <div class="outer">
+<div class="floor" v-for="floorList in mockFloorList">
     <div class="py-container">
       <div class="title clearfix">
         <h3 class="fl">家用电器</h3>
         <div class="fr">
           <ul class="nav-tabs clearfix">
-            <li class="active">
-              <a href="#tab1" data-toggle="tab">热门</a>
+            <li v-for="navList in floorList.navList">
+              <a href="#tab1" data-toggle="tab">{{navList.text}}</a>
             </li>
-            <li>
+            <!-- <li>
               <a href="#tab2" data-toggle="tab">大家电</a>
             </li>
             <li>
@@ -26,7 +27,7 @@
             </li>
             <li>
               <a href="#tab7" data-toggle="tab">高端电器</a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -35,20 +36,23 @@
           <div class="floor-1">
             <div class="blockgary">
               <ul class="jd-list">
-                <li>节能补贴</li>
+                <li v-for="keyword in floorList.keywords">{{keyword}}</li>
+                <!-- <li>节能补贴</li>
                 <li>4K电视</li>
                 <li>空气净化器</li>
                 <li>IH电饭煲</li>
                 <li>滚筒洗衣机</li>
-                <li>电热水器</li>
+                <li>电热水器</li> -->
               </ul>
-              <img src="./images/floor-1-1.png" />
+              <!-- <img src="./images/floor-1-1.png" /> -->
+              <img :src="floorList.imgUrl" />
             </div>
             <div class="floorBanner">
               <div class="swiper-container" id="floor1Swiper">
                 <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <img src="./images/floor-1-b01.png" />
+                  <div class="swiper-slide" v-for="carousel in floorList.carouselList">
+                    <!-- <img src="./images/floor-1-b01.png" /> -->
+                    <img :src="carousel.imgUrl" />
                   </div>
                   <!-- <div class="swiper-slide">
                                             <img src="./images/floor-1-b02.png">
@@ -68,22 +72,27 @@
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
-                <img src="./images/floor-1-2.png" />
+                <!-- <img src="./images/floor-1-2.png" /> -->
+                <img :src="floorList.recommendList[0]" />
               </div>
               <div class="floor-conver-pit">
-                <img src="./images/floor-1-3.png" />
+                <!-- <img src="./images/floor-1-3.png" /> -->
+                <img :src="floorList.recommendList[1]" />
               </div>
             </div>
             <div class="split center">
-              <img src="./images/floor-1-4.png" />
+              <!-- <img src="./images/floor-1-4.png" /> -->
+              <img :src="floorList.bigImg" />
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
-                <img src="./images/floor-1-5.png" />
+                <!-- <img src="./images/floor-1-5.png" /> -->
+                <img :src="floorList.recommendList[2]" />
               </div>
               <div class="floor-conver-pit">
-                <img src="./images/floor-1-6.png" />
+                <!-- <img src="./images/floor-1-6.png" /> -->
+                <img :src="floorList.recommendList[3]" />
               </div>
             </div>
           </div>
@@ -91,9 +100,12 @@
       </div>
     </div>
   </div>
+  </div>
+  
 </template>
 <script>
 import { mapState } from 'vuex';
+import Swiper from 'swiper';
 
 export default {
   name: "Floor",
@@ -104,7 +116,38 @@ export default {
     ...mapState({
       mockFloorList: state => state.home.mockFloorList,
     })
-  }
+  },
+  watch: {
+    mockFloorList: {
+      // // 监视mockBannerList属性发生变化，但不能保证dom已经遍历完毕
+      handler(newValue, oldValue) {
+        //
+        this.$nextTick(() => {
+          var mySwiper = new Swiper(".swiper-container", {
+            // direction: "vertical", // 垂直切换选项
+            loop: true, // 循环模式选项
+
+            // 如果需要分页器
+            pagination: {
+              el: ".swiper-pagination",
+              clickable: true,
+            },
+
+            // 如果需要前进后退按钮
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+
+            // 如果需要滚动条
+            scrollbar: {
+              el: ".swiper-scrollbar",
+            },
+          });
+        });
+      },
+    },
+  },
 };
 </script>
 <style scoped>
