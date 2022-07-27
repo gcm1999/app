@@ -1,10 +1,11 @@
 // home小仓库
 
-import { mockReqBannerList, reqCategoryList } from "@/api/index.js";
+import { getMockReqFloorList,mockReqBannerList, reqCategoryList } from "@/api/index.js";
 // state:仓库存储数据的地方
 const state = {
   categoryList: [],
-  mockBannerList:[],
+  mockBannerList: [],
+  mockFloorList:[],
 };
 // mutations:修改state的唯一手段
 const mutations = {
@@ -15,6 +16,9 @@ const mutations = {
     state.mockBannerList = mockBannerList;
 
   },
+  getMockReqFloorList(state, mockFloorList) {
+    state.mockFloorList = mockFloorList;
+  }
 };
 // action:处理action，可以书写自己的业务逻辑，也可以处理异步
 const actions = {
@@ -29,9 +33,16 @@ const actions = {
   async mockBannerList({ commit }) {
     let res = await mockReqBannerList();
     if (res.code == 200) {
+      // console.log(res);
+
+      commit("mockBannerList", res.data);
+    }
+  },
+  async getMockReqFloorList({ commit }) {
+    let res = await getMockReqFloorList();
+    if (res.code == 200) {
       console.log(res);
-      
-      commit("mockBannerList",res.data)
+      commit("getMockReqFloorList", res.data);
     }
   }
 };

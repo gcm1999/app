@@ -19,3 +19,10 @@ export const mockReqBannerList = () => {
       method: "get",
     });
 }
+export const getMockReqFloorList = () => {
+  // 发请求
+  return mockReq({
+    url: "/floor",
+    method: "get",
+  });
+};

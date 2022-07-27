@@ -93,8 +93,18 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: "Floor",
+  mounted() {
+    this.$store.dispatch("getMockReqFloorList");
+  },
+  computed: {
+    ...mapState({
+      mockFloorList: state => state.home.mockFloorList,
+    })
+  }
 };
 </script>
 <style scoped>
