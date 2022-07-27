@@ -72,7 +72,7 @@ export default {
       // this.$router.push(`/search/${this.keyword}?k=${this.keyword}`)
       // 对象形式
       let query = this.$route.query;
-      console.log(query);
+      // console.log(query);
       this.$router.push({
         name: "search",
         params: {

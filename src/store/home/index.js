@@ -41,7 +41,7 @@ const actions = {
   async getMockReqFloorList({ commit }) {
     let res = await getMockReqFloorList();
     if (res.code == 200) {
-      console.log(res);
+      // console.log(res);
       commit("getMockReqFloorList", res.data);
     }
   }

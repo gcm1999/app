@@ -19,7 +19,8 @@ import store from "@/store";
 // reqCategoryList();
 
 // Vue.config.productionTip = false
-
+// import {getReqSearchInfo} from "@/api/index";
+// console.log(getReqSearchInfo({}));
 let a;
 new Vue({
   render: (h) => h(App),

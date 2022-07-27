@@ -26,3 +26,11 @@ export const getMockReqFloorList = () => {
     method: "get",
   });
 };
+
+export const getReqSearchInfo = params => {
+  return requests({
+    url: "/list",
+    method: "post",
+    data:params,
+  })
+}
