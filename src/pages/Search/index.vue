@@ -203,7 +203,11 @@
           </div>
           <div class="goods-list">
             <ul class="yui3-g">
-              <li class="yui3-u-1-5" v-for="(good,index) in searchInfo.goodsList" :key="index">
+              <li
+                class="yui3-u-1-5"
+                v-for="(good, index) in searchInfo.goodsList"
+                :key="index"
+              >
                 <div class="list-wrap">
                   <div class="p-img">
                     <a href="item.html" target="_blank">
@@ -213,7 +217,7 @@
                   </div>
                   <div class="price">
                     <strong>
-                      <em>¥  </em>
+                      <em>¥ </em>
                       <i>6088.00</i>
                     </strong>
                   </div>
@@ -226,12 +230,9 @@
                       (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s
                       (A1699)</a
                     > -->
-                    <a
-                      target="_blank"
-                      href="item.html"
-                      :title="good.title"
-                      >{{good.title}}</a
-                    >
+                    <a target="_blank" href="item.html" :title="good.title">{{
+                      good.title
+                    }}</a>
                   </div>
                   <div class="commit">
                     <i class="command">已有<span>2000</span>人评价</i>
@@ -729,9 +730,9 @@ export default {
         trademark: "",
       },
     };
-    },
-    beforeMount() {
-    Object.assign(this.searchParams,this.$route.params,this.$route.query)
+  },
+  beforeMount() {
+    Object.assign(this.searchParams, this.$route.params, this.$route.query);
   },
   mounted() {
     this.getSearchInfo();
@@ -739,6 +740,15 @@ export default {
   methods: {
     getSearchInfo() {
       this.$store.dispatch("saveSearchInfo", this.searchParams);
+    },
+  },
+  watch: {
+    $route(oldV, newV) {
+      Object.assign(this.searchParams, this.$route.params, this.$route.query);
+          this.getSearchInfo();
+          this.searchParams.category1Id = '';
+          this.searchParams.category2Id = '';
+          this.searchParams.category3Id = '';
     },
   },
 };
