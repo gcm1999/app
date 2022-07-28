@@ -37,6 +37,13 @@ export const getReqSearchInfo = (params) => {
 // 获取验证码
 export const reqGetCode = (phone) =>
   requests({ url: `/user/passport/sendCode/${phone}`, method: "get" });
-
+// 注册
 export const reqUserRegister = (user) =>
   requests({ url: `/user/passport/register`, method: "post", data: user });
+// 登录
+export const reqUserLogin = (user) =>
+  requests({
+    url: "/user/passport/login",
+    method: 'post',
+    data:user
+  });

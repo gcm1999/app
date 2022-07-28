@@ -14,16 +14,16 @@
           </ul>
 
           <div class="content">
-            <form action="##">
+            <form>
               <div class="input-text clearFix">
                 <i></i>
-                <input type="text" placeholder="手机号" />
+                <input v-model="phone" type="text" placeholder="手机号" />
                 <span class="error-msg">错误提示信息</span>
               </div>
 
               <div class="input-text clearFix">
                 <i class="pwd"></i>
-                <input type="text" placeholder="请输入密码" />
+                <input v-model="password" type="text" placeholder="请输入密码" />
                 <span class="error-msg">错误提示信息</span>
               </div>
 
@@ -34,14 +34,14 @@
                 </label>
                 <span class="forget">忘记密码？</span>
               </div>
-              <button class="btn">登&nbsp;&nbsp;录</button>
+              <button @click="userLogin" class="btn">登&nbsp;&nbsp;录</button>
             </form>
             <div class="call clearFix">
               <ul>
-                <li><img src="images/qq.png" alt="" /></li>
-                <li><img src="images/sina.png" alt="" /></li>
-                <li><img src="images/ali.png" alt="" /></li>
-                <li><img src="images/weixin.png" alt="" /></li>
+                <li><img src="./images/qq.png" alt="" /></li>
+                <li><img src="./images/sina.png" alt="" /></li>
+                <li><img src="./images/ali.png" alt="" /></li>
+                <li><img src="./images/weixin.png" alt="" /></li>
               </ul>
               <!-- <a href="##" class="register">立即注册</a> -->
               <router-link class="register" to="/register"
@@ -72,8 +72,17 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      phone: '',
+      password:'',
+    };
   },
+  methods: {
+    userLogin() {
+      const { phone, password } = this;
+      this.$store.dispatch('userLogin',{phone,password})
+    }
+  }
 };
 </script>
 <style scoped>
