@@ -13,27 +13,30 @@
       </h3>
       <div class="content">
         <label>手机号:</label>
-        <input type="text" placeholder="请输入你的手机号" />
+        <input type="text" placeholder="请输入你的手机号" v-model="phone" />
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="content">
         <label>验证码:</label>
-        <input type="text" placeholder="请输入验证码" />
-        <img
+        <input type="text" placeholder="请输入验证码" v-model="code" />
+        <button style="width: 100px; height: 38px" @click="getCode">
+          获取验证码
+        </button>
+        <!-- <img
           ref="code"
           src="http://182.92.128.115/api/user/passport/code"
           alt="code"
-        />
+        /> -->
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="content">
         <label>登录密码:</label>
-        <input type="text" placeholder="请输入你的登录密码" />
+        <input v-model="password" type="text" placeholder="请输入你的登录密码" />
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="content">
         <label>确认密码:</label>
-        <input type="text" placeholder="请输入确认密码" />
+        <input v-model="password1" type="text" placeholder="请输入确认密码" />
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="controls">
@@ -42,7 +45,7 @@
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="btn">
-        <button>完成注册</button>
+        <button @click="userRegister">完成注册</button>
       </div>
     </div>
 
@@ -66,7 +69,34 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      phone: "",
+      code: "",
+      password: '',
+      password1:'',
+    };
+  },
+  methods: {
+    async getCode() {
+      // console.log(this);
+      // 如果获取到验证码
+      try {
+        const { phone } = this;
+        phone && await this.$store.dispatch("getCode", phone);
+        // 将组件的code属性值变为仓库的验证码
+        this.code = this.$store.state.user.code;
+      } catch (error) {}
+    },
+    async userRegister() {
+      try {
+        const { phone, code, password, password1 } = this;
+        (phone && code && password == password1 && await this.$store.dispatch('userRegister', { phone, password, code }));
+        this.$router.push('/login');
+      } catch (error) {
+        alert(error.message);
+      }
+      
+    }
   },
 };
 </script>
