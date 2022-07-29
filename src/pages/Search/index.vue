@@ -20,6 +20,13 @@
             <li class="with-x" v-if="searchParams.keyword">
               {{ searchParams.keyword }}<i @click="removeKeyword">×</i>
             </li>
+            <li class="with-x" v-if="searchParams.trademark">
+              {{ searchParams.trademark.split(":")[1]
+              }}<i @click="removeTrademark">×</i>
+            </li>
+            <li class="with-x" v-for="(attr, index) in searchParams.props">
+              {{ attr.split(":")[1] }}<i @click="removeAttr(index)">×</i>
+            </li>
             <!-- <li class="with-x">iphone<i>×</i></li>
             <li class="with-x">华为<i>×</i></li>
             <li class="with-x">OPPO<i>×</i></li> -->
@@ -34,6 +41,7 @@
                 <li
                   v-for="(trademark, index) in searchInfo.trademarkList"
                   :key="trademark.tmId"
+                  @click="trademarkHandle(trademark)"
                 >
                   {{ trademark.tmName }}
                 </li>
@@ -70,7 +78,7 @@
             <div class="fl value">
               <ul class="type-list">
                 <li v-for="av in attr.attrValueList">
-                  <a>{{ av }}</a>
+                  <a @click="attrHandle(attr, av)">{{ av }}</a>
                 </li>
                 <!-- <li>
                   <a>电信2G</a>
@@ -773,6 +781,34 @@ export default {
       this.$bus.$emit("clear");
       this.$router.push({ name: "search", params: this.$route.query });
     },
+    trademarkHandle(trademark) {
+      // console.log(trademark);
+      // let id = trademark.tmId;
+      // let name = trademark.tmName;
+      this.searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`;
+      this.getSearchInfo();
+    },
+    removeTrademark() {
+      this.searchParams.trademark = undefined;
+      this.getSearchInfo();
+    },
+    attrHandle(attr, av) {
+      // console.log(av);
+      // console.log(attr);
+      // console.log(this.searchParams.props);
+      let props = `${attr.attrId}:${av}:${attr.attrName}`;
+      if (this.searchParams.props.indexOf(props) == -1) {
+        this.searchParams.props.push(props);
+        this.getSearchInfo();
+      }
+
+    },
+    removeAttr(index) {
+      // 从数组索引index处删除一项数据
+      this.searchParams.props.splice(index, 1);
+      this.getSearchInfo();
+
+    },
   },
   watch: {
     $route(oldV, newV) {
@@ -887,6 +923,7 @@ export default {
   padding-right: 90px;
 }
 .outer .main .py-container .selector .type-wrap .value .logo-list li {
+  cursor: pointer;
   float: left;
   border: 1px solid #e4e4e4;
   margin: -1px -1px 0 0;
