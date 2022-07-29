@@ -8,7 +8,7 @@ Vue.component(TypeNav.name, TypeNav);
 import "@/mock/mockServe";
 
 // 引入swiper样式
-import "swiper/css/swiper.min.css"
+import "swiper/css/swiper.min.css";
 
 //引入路由
 import router from "@/router";
@@ -24,6 +24,10 @@ import store from "@/store";
 let a;
 new Vue({
   render: (h) => h(App),
+  // 全局事件总线$bus配置
+  beforeCreate() {
+    Vue.prototype.$bus = this;
+  },
 
   //注册路由,KV一致省略V
   //注册路由信息：当这里书写router的时候，组件身上都拥有$route,$router属性

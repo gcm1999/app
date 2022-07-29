@@ -13,7 +13,6 @@
             <!-- 声明式导航：务必要有to属性 -->
             <router-link to="/login">登录</router-link>
             <router-link class="register" to="/register">免费注册</router-link>
-            
           </p>
         </div>
         <div class="typeList">
@@ -34,7 +33,7 @@
         <!-- <a class="logo" title="尚品汇" href="###" target="_blank">
           <img src="./images/logo.png" alt="" />
         </a> -->
-        <router-link  class="logo" to="/home">
+        <router-link class="logo" to="/home">
           <img src="./images/logo.png" alt="" />
         </router-link>
       </h1>
@@ -46,7 +45,11 @@
             class="input-error input-xxlarge"
             v-model="keyword"
           />
-          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">
+          <button
+            class="sui-btn btn-xlarge btn-danger"
+            type="button"
+            @click="goSearch"
+          >
             搜索
           </button>
         </form>
@@ -59,8 +62,8 @@ export default {
   name: "",
   data() {
     return {
-      keyword:''
-    }
+      keyword: "",
+    };
   },
   methods: {
     goSearch() {
@@ -76,15 +79,20 @@ export default {
       this.$router.push({
         name: "search",
         params: {
-          keyword:this.keyword||undefined
+          keyword: this.keyword || undefined,
         },
-        query
+        query,
         // query: {
         //   k: this.keyword
         // }
-      })
-    }
-  }
+      });
+    },
+  },
+  mounted() {
+    this.$bus.$on("clear", () => {
+      this.keyword = "";
+    });
+  },
 };
 </script>
 

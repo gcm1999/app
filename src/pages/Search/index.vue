@@ -13,10 +13,16 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
+            <li class="with-x" v-if="searchParams.categoryName">
+              {{ searchParams.categoryName
+              }}<i @click="removeCategoryName">×</i>
+            </li>
+            <li class="with-x" v-if="searchParams.keyword">
+              {{ searchParams.keyword }}<i @click="removeKeyword">×</i>
+            </li>
+            <!-- <li class="with-x">iphone<i>×</i></li>
             <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x">OPPO<i>×</i></li> -->
           </ul>
         </div>
         <!--selector-->
@@ -25,7 +31,12 @@
             <div class="fl key brand">品牌</div>
             <div class="value logos">
               <ul class="logo-list">
-                <li v-for="(trademark,index) in searchInfo.trademarkList" :key="trademark.tmId">{{trademark.tmName}}</li>
+                <li
+                  v-for="(trademark, index) in searchInfo.trademarkList"
+                  :key="trademark.tmId"
+                >
+                  {{ trademark.tmName }}
+                </li>
                 <!-- <li>TCL</li>
                 <li>长虹（CHANGHONG）</li>
                 <li>飞利浦（PHILIPS）</li>
@@ -50,12 +61,16 @@
               <a href="javascript:void(0);">更多</a>
             </div>
           </div>
-          <div class="type-wrap" v-for="attr in searchInfo.attrsList" :key="attr.attrId">
-            <div class="fl key">{{attr.attrName}}</div>
+          <div
+            class="type-wrap"
+            v-for="attr in searchInfo.attrsList"
+            :key="attr.attrId"
+          >
+            <div class="fl key">{{ attr.attrName }}</div>
             <div class="fl value">
               <ul class="type-list">
                 <li v-for="av in attr.attrValueList">
-                  <a>{{av}}</a>
+                  <a>{{ av }}</a>
                 </li>
                 <!-- <li>
                   <a>电信2G</a>
@@ -742,14 +757,31 @@ export default {
       // console.log(this.searchParams);
       this.$store.dispatch("saveSearchInfo", this.searchParams);
     },
+    removeCategoryName() {
+      // console.log(this.$route.query.categoryName);
+      // this.$route.query.categoryName = '';
+      this.searchParams.categoryName = undefined;
+      this.searchParams.category1Id = undefined;
+      this.searchParams.category2Id = undefined;
+      this.searchParams.category3Id = undefined;
+      this.getSearchInfo();
+      this.$router.push({ name: "search", params: this.$route.params });
+    },
+    removeKeyword() {
+      this.searchParams.keyword = undefined;
+      this.getSearchInfo();
+      this.$bus.$emit("clear");
+      this.$router.push({ name: "search", params: this.$route.query });
+    },
   },
   watch: {
     $route(oldV, newV) {
       Object.assign(this.searchParams, this.$route.params, this.$route.query);
-          this.getSearchInfo();
-          this.searchParams.category1Id = '';
-          this.searchParams.category2Id = '';
-          this.searchParams.category3Id = '';
+
+      this.getSearchInfo();
+      this.searchParams.category1Id = undefined;
+      this.searchParams.category2Id = undefined;
+      this.searchParams.category3Id = undefined;
     },
   },
 };

@@ -2,12 +2,11 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <!-- {{categoryList}} -->
-    <div class="container" @mouseleave="mLeave" >
+    <div class="container" @mouseleave="mLeave">
       <h2 class="all" @mouseenter="changeShow">全部商品分类</h2>
-      <div class="sort"  v-show="show">
+      <div class="sort" v-show="show">
         <div class="all-sort-list2" @click="goSearch">
           <div
-            
             :class="{ cur: currentIndex == index }"
             @mouseenter="changeIndex(index)"
             v-for="(c1, index) in categoryList"
@@ -1712,7 +1711,6 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-      
     </div>
   </div>
 </template>
@@ -1731,8 +1729,8 @@ export default {
   //   组件挂载完毕：可以向服务器发请求
   mounted() {
     if (this.$route.name == "search") {
-        this.show = false;
-      }
+      this.show = false;
+    }
     // 放到根组件中
     // 通知vuex发请求，获取数据，存储与仓库中
     // this.$store.dispatch("categoryList");
@@ -1759,7 +1757,6 @@ export default {
       let { categoryname, category1id, category2id, category3id } = ele.dataset;
 
       if (categoryname) {
-
         let location = { name: "search" };
         let query = { categoryName: categoryname };
 
@@ -1780,7 +1777,7 @@ export default {
     },
     mLeave() {
       this.currentIndex = -1;
-      if(this.$route.name == "search"){
+      if (this.$route.name == "search") {
         this.show = false;
       }
     },
@@ -1788,7 +1785,7 @@ export default {
       if (this.$route.name == "search") {
         this.show = true;
       }
-    }
+    },
   },
 };
 </script>

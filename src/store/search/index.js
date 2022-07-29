@@ -13,7 +13,7 @@ const actions = {
   async saveSearchInfo(context, params = {}) {
     let res = await getReqSearchInfo(params);
     if (res.code == 200) {
-      console.log(res);
+      // console.log(res);
       context.commit("saveSearchInfo", res.data);
     }
   },
