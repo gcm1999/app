@@ -609,7 +609,7 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <Pagination></Pagination>
+          <Pagination :pageNo="10" :pageSize="3" :total="66" :continues="5"></Pagination>
         </div>
         <!--hotsale-->
         <div class="clearfix hot-sale">
