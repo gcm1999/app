@@ -1,6 +1,6 @@
 <template>
   <div class="pagination">
-    <h1>{{ startAndEnd }}</h1>
+    <!-- <h1>{{ startAndEnd }}</h1> -->
     <button @click="$emit('currentPage', pageNo - 1)" :disabled="pageNo == 1">
       上一页
     </button>
@@ -112,16 +112,16 @@ export default {
         start = pageNo - num;
         end = pageNo + num;
       }
-      console.log(start);
-      console.log(end);
+    //   console.log(start);
+    //   console.log(end);
       return { start, end };
     },
   },
 };
 </script>
 <style scoped>
-.pagination{
-    text-align: center;
+.pagination {
+  text-align: center;
 }
 .pagination button {
   margin: 0 5px;
@@ -145,7 +145,7 @@ export default {
   color: #c0c4cc;
   cursor: not-allowed;
 }
-.pagination button .active {
+.pagination .active {
   cursor: not-allowed;
   background-color: #409eff;
   color: #fff;

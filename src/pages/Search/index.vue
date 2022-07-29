@@ -609,7 +609,13 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <Pagination :pageNo="10" :pageSize="3" :total="66" :continues="5"></Pagination>
+          <Pagination
+            :pageNo="searchParams.pageNo"
+            :pageSize="searchParams.pageSize"
+            :total="total"
+            :continues="5"
+            @currentPage="currentPage"
+          ></Pagination>
         </div>
         <!--hotsale-->
         <div class="clearfix hot-sale">
@@ -710,6 +716,7 @@ export default {
   computed: {
     ...mapState({
       searchInfo: (state) => state.search.searchInfo,
+      total: (state) => state.search.searchInfo.total,
     }),
   },
   data() {
@@ -722,7 +729,7 @@ export default {
         keyword: "",
         order: "",
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 3,
         props: [],
         trademark: "",
       },
@@ -775,14 +782,17 @@ export default {
         this.searchParams.props.push(props);
         this.getSearchInfo();
       }
-
     },
     removeAttr(index) {
       // 从数组索引index处删除一项数据
       this.searchParams.props.splice(index, 1);
       this.getSearchInfo();
-
     },
+    currentPage(pageNo) {
+      // console.log(pageNo);
+      this.searchParams.pageNo = pageNo;
+      this.getSearchInfo();
+    }
   },
   watch: {
     $route(oldV, newV) {
