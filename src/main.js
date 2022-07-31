@@ -3,6 +3,9 @@ import App from "./App.vue";
 // 分页器全局组件
 import Pagination from "@/components/Pagination";
 Vue.component(Pagination.name, Pagination);
+// 轮播图全局组件
+import Carouse from "@/components/Carouse";
+Vue.component(Carouse.name, Carouse);
 
 //三级联动组件---全局组件
 import TypeNav from "@/components/TypeNav";

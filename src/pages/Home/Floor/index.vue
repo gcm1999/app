@@ -48,26 +48,7 @@
               <img :src="floorList.imgUrl" />
             </div>
             <div class="floorBanner">
-              <div class="swiper-container" id="floor1Swiper">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide" v-for="carousel in floorList.carouselList">
-                    <!-- <img src="./images/floor-1-b01.png" /> -->
-                    <img :src="carousel.imgUrl" />
-                  </div>
-                  <!-- <div class="swiper-slide">
-                                            <img src="./images/floor-1-b02.png">
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <img src="./images/floor-1-b03.png">
-                                        </div> -->
-                </div>
-                <!-- 如果需要分页器 -->
-                <div class="swiper-pagination"></div>
-
-                <!-- 如果需要导航按钮 -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-              </div>
+              <Carouse :bannerList="floorList.carouselList"></Carouse>
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
@@ -105,7 +86,6 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import Swiper from 'swiper';
 
 export default {
   name: "Floor",
@@ -117,37 +97,6 @@ export default {
     ...mapState({
       mockFloorList: state => state.home.mockFloorList,
     })
-  },
-  watch: {
-    mockFloorList: {
-      // // 监视mockBannerList属性发生变化，但不能保证dom已经遍历完毕
-      handler(newValue, oldValue) {
-        //
-        this.$nextTick(() => {
-          var mySwiper = new Swiper(".swiper-container", {
-            // direction: "vertical", // 垂直切换选项
-            loop: true, // 循环模式选项
-
-            // 如果需要分页器
-            pagination: {
-              el: ".swiper-pagination",
-              clickable: true,
-            },
-
-            // 如果需要前进后退按钮
-            navigation: {
-              nextEl: ".swiper-button-next",
-              prevEl: ".swiper-button-prev",
-            },
-
-            // 如果需要滚动条
-            scrollbar: {
-              el: ".swiper-scrollbar",
-            },
-          });
-        });
-      },
-    },
   },
 };
 </script>
