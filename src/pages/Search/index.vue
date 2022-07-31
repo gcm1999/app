@@ -230,10 +230,11 @@
                 class="yui3-u-1-5"
                 v-for="(good, index) in searchInfo.goodsList"
                 :key="index"
+                @click="goDetail"
               >
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank">
+                    <a target="_blank">
                       <!-- <img src="./images/mobile01.png" /> -->
                       <img :src="good.defaultImg" />
                     </a>
@@ -729,7 +730,7 @@ export default {
         keyword: "",
         order: "",
         pageNo: 1,
-        pageSize: 3,
+        pageSize: 10,
         props: [],
         trademark: "",
       },
@@ -792,6 +793,9 @@ export default {
       // console.log(pageNo);
       this.searchParams.pageNo = pageNo;
       this.getSearchInfo();
+    },
+    goDetail() {
+      this.$router.push("/detail")
     }
   },
   watch: {
