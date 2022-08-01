@@ -1728,7 +1728,7 @@ export default {
 
   //   组件挂载完毕：可以向服务器发请求
   mounted() {
-    if (this.$route.name == "search") {
+    if (this.$route.name != "home") {
       this.show = false;
     }
     // 放到根组件中
@@ -1777,12 +1777,12 @@ export default {
     },
     mLeave() {
       this.currentIndex = -1;
-      if (this.$route.name == "search") {
+      if (this.$route.name != "home") {
         this.show = false;
       }
     },
     changeShow() {
-      if (this.$route.name == "search") {
+      if (this.$route.name != "home") {
         this.show = true;
       }
     },

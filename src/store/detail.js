@@ -17,7 +17,17 @@ const actions = {
     }
   },
 };
-const getters = {};
+const getters = {
+  categoryView(state) {
+    return state.goodsDetail.categoryView || {};
+  },
+  skuInfo(state) {
+    return state.goodsDetail.skuInfo || {};
+  },
+  spuSaleAttrList(state) {
+    return state.goodsDetail.spuSaleAttrList || {};
+  },
+};
 export default {
   state,
   mutations,

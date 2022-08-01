@@ -11,6 +11,7 @@ import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Detail from "@/pages/Detail";
+import home from "@/store/home";
 
 //配置路由
 export default new VueRouter({
@@ -24,7 +25,7 @@ export default new VueRouter({
     {
       path: "/home",
       component: Home,
-
+      name:"home",
       //   配置路由元信息
       meta: { show: true },
     },

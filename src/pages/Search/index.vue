@@ -795,7 +795,6 @@ export default {
       this.getSearchInfo();
     },
     goDetail(skuid) {
-      this.$store.dispatch("getGoodsDetail",skuid)
       this.$router.push(`/detail/${skuid}`);
     },
   },
