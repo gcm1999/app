@@ -230,7 +230,7 @@
                 class="yui3-u-1-5"
                 v-for="(good, index) in searchInfo.goodsList"
                 :key="index"
-                @click="goDetail"
+                @click="goDetail(good.id)"
               >
                 <div class="list-wrap">
                   <div class="p-img">
@@ -794,9 +794,10 @@ export default {
       this.searchParams.pageNo = pageNo;
       this.getSearchInfo();
     },
-    goDetail() {
-      this.$router.push("/detail")
-    }
+    goDetail(skuid) {
+      this.$store.dispatch("getGoodsDetail",skuid)
+      this.$router.push(`/detail/${skuid}`);
+    },
   },
   watch: {
     $route(oldV, newV) {

@@ -14,6 +14,11 @@ import Detail from "@/pages/Detail";
 
 //配置路由
 export default new VueRouter({
+
+  // 滚动行为
+  scrollBehavior(to, from, savedPosition) {
+    return{y:0}
+  },
   //配置路由
   routes: [
     {
@@ -40,7 +45,7 @@ export default new VueRouter({
       meta: { show: false },
     },
     {
-      path: "/detail",
+      path: "/detail/:skuid",
       component: Detail,
       meta: { show: true },
     },

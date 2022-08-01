@@ -44,6 +44,12 @@ export const reqUserRegister = (user) =>
 export const reqUserLogin = (user) =>
   requests({
     url: "/user/passport/login",
-    method: 'post',
-    data:user
+    method: "post",
+    data: user,
+  });
+// 商品详情
+export const reqGetGoodsDetail = (skuId) =>
+  requests({
+    url: `/item/${skuId}`,
+    method: "get",
   });
