@@ -7,9 +7,15 @@
       <!-- 导航路径区域 -->
       <div class="conPoin">
         <div class="conPoin">
-          <a href="###" v-show="categoryView.category1Name">{{categoryView.category1Name}}</a>
-          <a href="###" v-show="categoryView.category2Name">{{categoryView.category2Name}}</a>
-          <a href="###" v-show="categoryView.category3Name">{{categoryView.category3Name}}</a>
+          <a href="###" v-show="categoryView.category1Name">{{
+            categoryView.category1Name
+          }}</a>
+          <a href="###" v-show="categoryView.category2Name">{{
+            categoryView.category2Name
+          }}</a>
+          <a href="###" v-show="categoryView.category3Name">{{
+            categoryView.category3Name
+          }}</a>
           <!-- <a href="###">手机</a>
           <a href="###">Apple苹果</a>
           <a>iphone 6S系类</a> -->
@@ -20,31 +26,18 @@
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <div class="preview">
-            <div class="jqzoom">
-              <img src="./images/s1.png" />
-            </div>
-          </div>
+          <Zoom :skuImageList="skuImageList" />
           <!--下方的缩略图-->
-          <div class="specScroll">
-            <!--左按钮-->
-            <a class="prev">&lt;</a>
-            <!-- 中间可滑动区域 -->
-            <div class="items">
-              <div class="itemsCon"></div>
-            </div>
-            <!--右按钮-->
-            <a class="next">&gt;</a>
-          </div>
+          <ImageList :skuImageList="skuImageList" />
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
           <div class="goodsDetail">
             <h3 class="InfoName">
-              {{skuInfo.skuName}}
+              {{ skuInfo.skuName }}
             </h3>
             <p class="news">
-              {{skuInfo.skuDesc}}
+              {{ skuInfo.skuDesc }}
             </p>
             <div class="priceArea">
               <div class="priceArea1">
@@ -53,7 +46,7 @@
                 </div>
                 <div class="price">
                   <i>¥</i>
-                  <em>{{skuInfo.price}}</em>
+                  <em>{{ skuInfo.price }}</em>
                   <span>降价通知</span>
                 </div>
                 <div class="remark">
@@ -92,13 +85,26 @@
           <div class="choose">
             <div class="chooseArea">
               <div class="choosed"></div>
-              <dl>
-                <dt class="title">选择颜色</dt>
-                <dd changepirce="0" class="active">金色</dd>
-                <dd changepirce="40">银色</dd>
-                <dd changepirce="90">黑色</dd>
+              <dl
+                v-for="(spuSaleAttr, index) in spuSaleAttrList"
+                :key="spuSaleAttr.id"
+              >
+                <dt class="title">{{ spuSaleAttr.saleAttrName }}</dt>
+                <dd
+                  changepirce="0"
+                  :class="{ active: spuSaleAttrValue.isChecked == '1' }"
+                  @click="changeActive(spuSaleAttr.spuSaleAttrValueList, index)"
+                  v-for="(
+                    spuSaleAttrValue, index
+                  ) in spuSaleAttr.spuSaleAttrValueList"
+                  :key="spuSaleAttrValue.id"
+                >
+                  {{ spuSaleAttrValue.saleAttrValueName }}
+                </dd>
+                <!-- <dd changepirce="40">银色</dd>
+                <dd changepirce="90">黑色</dd> -->
               </dl>
-              <dl>
+              <!-- <dl>
                 <dt class="title">内存容量</dt>
                 <dd changepirce="0" class="active">16G</dd>
                 <dd changepirce="300">64G</dd>
@@ -115,7 +121,7 @@
                 <dd changepirce="0" class="active">官方标配</dd>
                 <dd changepirce="-240">优惠移动版</dd>
                 <dd changepirce="-390">电信优惠版</dd>
-              </dl>
+              </dl> -->
             </div>
             <div class="cartWrap">
               <div class="controls">
@@ -439,14 +445,28 @@
 <script>
 import TypeNav from "@/components/TypeNav/index.vue";
 import { mapGetters } from "vuex";
+import Zoom from "./Zoom/Zoom.vue";
+import ImageList from "./ImageList/ImageList.vue";
 export default {
   name: "Detail",
-  components: { TypeNav },
+  components: { TypeNav, Zoom, ImageList },
   mounted() {
     this.$store.dispatch("getGoodsDetail", this.$route.params.skuid);
   },
   computed: {
-    ...mapGetters(["skuInfo", "categoryView","spuSaleAttrList"]),
+    ...mapGetters(["skuInfo", "categoryView", "spuSaleAttrList"]),
+    skuImageList() {
+      return this.skuInfo.skuImageList || [];
+    },
+  },
+  methods: {
+    changeActive(attrValueList, index) {
+      // console.log(index);
+      for (let i = 0; i < attrValueList.length; i++) {
+        attrValueList[i].isChecked = "0";
+      }
+      attrValueList[index].isChecked = "1";
+    },
   },
 };
 </script>
@@ -666,6 +686,7 @@ export default {
   float: left;
 }
 .outer .con .mainCon .InfoWrap .choose .chooseArea dl dd {
+  cursor: pointer;
   float: left;
   margin-right: 5px;
   color: #666;
@@ -676,9 +697,13 @@ export default {
   border-bottom: 1px solid #bbb;
   border-left: 1px solid #eee;
 }
-.outer .con .mainCon .InfoWrap .choose .chooseArea dl dd:nth-of-type(1) {
+.outer .con .mainCon .InfoWrap .choose .chooseArea .active {
   color: red;
+  border: red 1px solid;
 }
+/* .outer .con .mainCon .InfoWrap .choose .chooseArea dl dd:nth-of-type(1) {
+  color: red;
+} */
 .outer .con .mainCon .InfoWrap .choose .cartWrap .controls {
   width: 48px;
   position: relative;
