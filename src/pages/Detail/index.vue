@@ -125,12 +125,22 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" />
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input
+                  autocomplete="off"
+                  class="itxt"
+                  v-model="count"
+                  disabled="disabled"
+                />
+                <a href="javascript:" class="plus" @click="count++">+</a>
+                <a
+                  href="javascript:"
+                  class="mins"
+                  @click="count > 1 ? count-- : (count = 1)"
+                  >-</a
+                >
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a href="javascript:" @click="addCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -449,6 +459,11 @@ import Zoom from "./Zoom/Zoom.vue";
 import ImageList from "./ImageList/ImageList.vue";
 export default {
   name: "Detail",
+  data() {
+    return {
+      count: 1,
+    };
+  },
   components: { TypeNav, Zoom, ImageList },
   mounted() {
     this.$store.dispatch("getGoodsDetail", this.$route.params.skuid);
@@ -466,6 +481,9 @@ export default {
         attrValueList[i].isChecked = "0";
       }
       attrValueList[index].isChecked = "1";
+    },
+    addCart() {
+      this.$router.push("/addCartSucess");
     },
   },
 };
