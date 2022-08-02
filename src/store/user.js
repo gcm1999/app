@@ -73,6 +73,9 @@ const actions = {
     console.log(res);
     if (res.code == 200) {
       context.commit("saveUserInfo", res.data);
+      return "ok";
+    } else {
+      return Promise.reject(new Error("faild"));
     }
     // context.commit("saveUserInfo",res.data)
   },
