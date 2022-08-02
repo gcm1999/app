@@ -2,9 +2,10 @@ import {
   reqGetCode,
   reqGetUserInfo,
   reqUserLogin,
+  reqUserLogout,
   reqUserRegister,
 } from "@/api";
-import { getToken, setToken } from "@/utils";
+import { getToken, removeToken, setToken } from "@/utils";
 const state = {
   code: "",
   userInfo: {},
@@ -19,6 +20,11 @@ const mutations = {
   },
   saveUserInfo(state, userInfo) {
     state.userInfo = userInfo;
+  },
+  userLogout(state) {
+    removeToken();
+    state.token = "";
+    state.userInfo = {};
   },
 };
 const actions = {
@@ -48,6 +54,15 @@ const actions = {
     if (res.code == 200) {
       context.commit("saveToken", res.data.token);
       setToken(res.data.token);
+      return "ok";
+    } else {
+      return Promise.reject(new Error("faild"));
+    }
+  },
+  async userLogout(context) {
+    let res = await reqUserLogout();
+    if (res.code == 200) {
+      context.commit("userLogout");
       return "ok";
     } else {
       return Promise.reject(new Error("faild"));

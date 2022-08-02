@@ -53,6 +53,9 @@ export const reqGetUserInfo = () =>
     url: "/user/passport/auth/getUserInfo",
     method: "get",
   });
+// 退出登录
+export const reqUserLogout = () =>
+  requests({ url: "/user/passport/logout", method: "get" });
 // 商品详情
 export const reqGetGoodsDetail = (skuId) =>
   requests({

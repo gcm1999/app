@@ -18,8 +18,8 @@
             <!-- <a href="###">登录</a> -->
             <!-- <a href="###" class="register">免费注册</a> -->
             <!-- 声明式导航：务必要有to属性 -->
-            <a>{{userInfo.nickName}}</a>
-            <a class="register">退出登录</a>
+            <a>{{ userInfo.nickName }}</a>
+            <a class="register" @click="logout">退出登录</a>
           </p>
         </div>
         <div class="typeList">
@@ -95,6 +95,14 @@ export default {
         // }
       });
     },
+    async logout() {
+      try {
+        await this.$store.dispatch("userLogout");
+        this.$router.push("/home");
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
   },
   mounted() {
     this.$bus.$on("clear", () => {
@@ -107,7 +115,7 @@ export default {
     },
     userNickName() {
       return this.$store.state.user.userInfo.nickName;
-    }
+    },
   },
 };
 </script>
