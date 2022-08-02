@@ -23,7 +23,11 @@
 
               <div class="input-text clearFix">
                 <i class="pwd"></i>
-                <input v-model="password" type="text" placeholder="请输入密码" />
+                <input
+                  v-model="password"
+                  type="text"
+                  placeholder="请输入密码"
+                />
                 <span class="error-msg">错误提示信息</span>
               </div>
 
@@ -70,19 +74,26 @@
   </div>
 </template>
 <script>
+import router from "@/router";
+
 export default {
   data() {
     return {
-      phone: '',
-      password:'',
+      phone: "",
+      password: "",
     };
   },
   methods: {
-    userLogin() {
-      const { phone, password } = this;
-      this.$store.dispatch('userLogin',{phone,password})
-    }
-  }
+    async userLogin() {
+      try {
+        const { phone, password } = this;
+        await this.$store.dispatch("userLogin", { phone, password });
+        this.$router.push("/home");
+      } catch (error) {
+        alert(error.message);
+      }
+    },
+  },
 };
 </script>
 <style scoped>

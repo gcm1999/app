@@ -6,13 +6,20 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+          <p v-if="!userNickName">
             <span>请</span>
             <!-- <a href="###">登录</a> -->
             <!-- <a href="###" class="register">免费注册</a> -->
             <!-- 声明式导航：务必要有to属性 -->
             <router-link to="/login">登录</router-link>
             <router-link class="register" to="/register">免费注册</router-link>
+          </p>
+          <p v-else>
+            <!-- <a href="###">登录</a> -->
+            <!-- <a href="###" class="register">免费注册</a> -->
+            <!-- 声明式导航：务必要有to属性 -->
+            <a>{{userInfo.nickName}}</a>
+            <a class="register">退出登录</a>
           </p>
         </div>
         <div class="typeList">
@@ -93,6 +100,14 @@ export default {
     this.$bus.$on("clear", () => {
       this.keyword = "";
     });
+  },
+  computed: {
+    userInfo() {
+      return this.$store.state.user.userInfo;
+    },
+    userNickName() {
+      return this.$store.state.user.userInfo.nickName;
+    }
   },
 };
 </script>

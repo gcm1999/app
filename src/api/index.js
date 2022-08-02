@@ -47,6 +47,12 @@ export const reqUserLogin = (user) =>
     method: "post",
     data: user,
   });
+// 获取用户信息
+export const reqGetUserInfo = () =>
+  requests({
+    url: "/user/passport/auth/getUserInfo",
+    method: "get",
+  });
 // 商品详情
 export const reqGetGoodsDetail = (skuId) =>
   requests({

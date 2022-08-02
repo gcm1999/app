@@ -1,7 +1,14 @@
-import { reqGetCode, reqUserLogin, reqUserRegister } from "@/api";
+import {
+  reqGetCode,
+  reqGetUserInfo,
+  reqUserLogin,
+  reqUserRegister,
+} from "@/api";
+import { getToken, setToken } from "@/utils";
 const state = {
   code: "",
-  token: "",
+  userInfo: {},
+  token: getToken(),
 };
 const mutations = {
   saveCode(state, code) {
@@ -9,6 +16,9 @@ const mutations = {
   },
   saveToken(state, token) {
     state.token = token;
+  },
+  saveUserInfo(state, userInfo) {
+    state.userInfo = userInfo;
   },
 };
 const actions = {
@@ -34,13 +44,22 @@ const actions = {
   },
   async userLogin(context, user) {
     let res = await reqUserLogin(user);
-    console.log(res);
+    // console.log(res);
     if (res.code == 200) {
       context.commit("saveToken", res.data.token);
-      //   return "ok";
+      setToken(res.data.token);
+      return "ok";
     } else {
       return Promise.reject(new Error("faild"));
     }
+  },
+  async getUserInfo(context) {
+    let res = await reqGetUserInfo();
+    console.log(res);
+    if (res.code == 200) {
+      context.commit("saveUserInfo", res.data);
+    }
+    // context.commit("saveUserInfo",res.data)
   },
 };
 const getters = {};

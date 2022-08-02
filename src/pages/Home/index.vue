@@ -26,10 +26,12 @@ export default {
   name: "",
   data() {
     return {
+      
     };
   },
   mounted() {
     this.$store.dispatch("getMockReqFloorList");
+    this.$store.dispatch("getUserInfo");
   },
   components: {
     ListContainer,
