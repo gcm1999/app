@@ -44,6 +44,7 @@ export default [
   {
     path: "/addCartSucess",
     component: AddCartSucess,
+    name: "addCartSucess",
     meta: { show: true },
   },
   //重定向:项目跑起来的时候重定向到首页

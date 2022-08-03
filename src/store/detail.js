@@ -1,4 +1,5 @@
 import { reqAddCart, reqGetGoodsDetail } from "@/api";
+import store from ".";
 
 const state = {
   goodsDetail: {},
@@ -18,8 +19,9 @@ const actions = {
   },
   async addCart(context, { skuId, skuNum }) {
     let res = await reqAddCart(skuId, skuNum);
-    console.log(res);
-  }
+    // console.log(res);
+    // sessionStorage.setItem("skuInfo", store.state.detail.skuInfo);
+  },
 };
 const getters = {
   categoryView(state) {

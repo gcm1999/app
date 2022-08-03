@@ -482,12 +482,19 @@ export default {
       }
       attrValueList[index].isChecked = "1";
     },
-    addCart() {
+    async addCart() {
       // console.log(this.skuInfo);
-      let skuId = this.skuInfo.id;
-      let skuNum = this.count;
-      this.$store.dispatch("addCart", { skuId, skuNum });
-      this.$router.push("/addCartSucess");
+      try {
+        let skuId = this.skuInfo.id;
+        let skuNum = this.count;
+        await this.$store.dispatch("addCart", { skuId, skuNum });
+
+        sessionStorage.setItem("SKUINFO", JSON.stringify(this.skuInfo));
+        this.$router.push({
+          name: "addCartSucess",
+          query: { skuNum },
+        });
+      } catch (error) {}
     },
   },
 };
