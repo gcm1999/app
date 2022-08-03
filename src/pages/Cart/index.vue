@@ -34,21 +34,37 @@
               <span class="price">{{ goodInfo.skuPrice }}</span>
             </li>
             <li class="cart-list-con5">
-              <a href="javascript:void(0)" class="mins">-</a>
+              <a
+                href="javascript:void(0)"
+                class="mins"
+                @click="updateSkuNum(goodInfo.skuId, -1)"
+                >-</a
+              >
               <input
                 autocomplete="off"
                 type="text"
                 :value="goodInfo.skuNum"
                 minnum="1"
                 class="itxt"
+                disabled="disabled"
               />
-              <a href="javascript:void(0)" class="plus">+</a>
+              <a
+                href="javascript:void(0)"
+                class="plus"
+                @click="updateSkuNum(goodInfo.skuId, 1)"
+                >+</a
+              >
             </li>
             <li class="cart-list-con6">
               <span class="sum">{{ goodInfo.skuPrice * goodInfo.skuNum }}</span>
             </li>
             <li class="cart-list-con7">
-              <a href="#none" class="sindelet">删除</a>
+              <a
+                href="#none"
+                class="sindelet"
+                @click="deleteCart(goodInfo.skuId)"
+                >删除</a
+              >
               <br />
               <a href="#none">移到收藏</a>
             </li>
@@ -165,20 +181,29 @@ export default {
     getCartInfoList() {
       this.$store.dispatch("getCartList");
     },
+    async deleteCart(skuId) {
+      try {
+        await this.$store.dispatch("deleteCart", skuId);
+        this.$store.dispatch("getCartList");
+      } catch (error) {}
+    },
+    async updateSkuNum(skuId, skuNum) {
+      try {
+        await this.$store.dispatch("addCart", { skuId, skuNum });
+        this.$store.dispatch("getCartList");
+      } catch (error) {}
+    },
   },
   computed: {
     ...mapGetters(["cartList"]),
+    // ...mapGetters(["cartInfoList"]),
     cartInfoList() {
       return this.cartList.cartInfoList || [];
     },
   },
   // watch: {
   //   cartInfoList: {
-  //     handler(newValue, oldValue) {
-  //       this.$nextTick(() => {
-
-  //       });
-  //     },
+  //     handler(newValue, oldValue) {},
   //   },
   // },
 };

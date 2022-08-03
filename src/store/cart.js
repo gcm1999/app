@@ -1,4 +1,4 @@
-import { reqGetCartList } from "@/api";
+import { reqDeleteCart, reqGetCartList } from "@/api";
 
 const state = {
   cartList: [],
@@ -17,11 +17,21 @@ const actions = {
       return "ok";
     }
   },
+  async deleteCart({ commit }, skuId) {
+    let res = await reqDeleteCart(skuId);
+    console.log(res);
+    if (res.code == 200) {
+      return "ok";
+    }
+  },
 };
 const getters = {
   cartList(state) {
-        return state.cartList[0] || {};
+    return state.cartList[0] || {};
   },
+  //   cartInfoList(state) {
+  //     return state.cartList.cartInfoList || [];
+  //   },
 };
 export default {
   state,

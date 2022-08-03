@@ -74,3 +74,9 @@ export const reqGetCartList = () =>
     url: "/cart/cartList",
     method: "get",
   });
+// 删除购物车
+export const reqDeleteCart = (skuId) =>
+  requests({
+    url: `/cart/deleteCart/${skuId}`,
+    method: "delete",
+  });
