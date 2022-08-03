@@ -21,7 +21,7 @@ router.beforeEach(async (to, from, next) => {
   let token = store.state.user.token;
   let name = store.state.user.userInfo.name;
   next();
-  console.log(to);
+  // console.log(to);
   if (token) {
     // 已登录去登陆页面，返回首页
     if (to.path == "/login") {
@@ -41,7 +41,7 @@ router.beforeEach(async (to, from, next) => {
           next("/login");
         }
       }
-      next();
+      // next();
     }
   } else if (to.path == "/cart") {
     alert("先登录吧大哥");

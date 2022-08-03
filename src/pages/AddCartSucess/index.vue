@@ -25,6 +25,9 @@
 <script>
 export default {
   name: "AddCartSucess",
+  computed: {
+    
+  }
 };
 </script>
 <style scoped>

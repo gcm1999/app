@@ -70,7 +70,7 @@ const actions = {
   },
   async getUserInfo(context) {
     let res = await reqGetUserInfo();
-    console.log(res);
+    // console.log(res);
     if (res.code == 200) {
       context.commit("saveUserInfo", res.data);
       return "ok";

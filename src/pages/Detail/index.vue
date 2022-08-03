@@ -483,6 +483,10 @@ export default {
       attrValueList[index].isChecked = "1";
     },
     addCart() {
+      // console.log(this.skuInfo);
+      let skuId = this.skuInfo.id;
+      let skuNum = this.count;
+      this.$store.dispatch("addCart", { skuId, skuNum });
       this.$router.push("/addCartSucess");
     },
   },

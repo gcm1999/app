@@ -1829,7 +1829,7 @@ export default {
   z-index: 999;
 }
 .type-nav .container .sort .all-sort-list2 .item h3 {
-  line-height: 30px;
+  line-height: 27px;
   font-size: 14px;
   font-weight: 400;
   overflow: hidden;

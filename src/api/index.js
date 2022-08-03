@@ -62,3 +62,15 @@ export const reqGetGoodsDetail = (skuId) =>
     url: `/item/${skuId}`,
     method: "get",
   });
+// 添加到购物车
+export const reqAddCart = (skuId, skuNum) =>
+  requests({
+    url: `/cart/addToCart/${skuId}/${skuNum}`,
+    method: "post",
+  });
+// 获取购物车列表
+export const reqGetCartList = () =>
+  requests({
+    url: "/cart/cartList",
+    method: "get",
+  });

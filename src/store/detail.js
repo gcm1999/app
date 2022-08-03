@@ -1,4 +1,4 @@
-import { reqGetGoodsDetail } from "@/api";
+import { reqAddCart, reqGetGoodsDetail } from "@/api";
 
 const state = {
   goodsDetail: {},
@@ -16,6 +16,10 @@ const actions = {
       context.commit("savaGoodsDetail", res.data);
     }
   },
+  async addCart(context, { skuId, skuNum }) {
+    let res = await reqAddCart(skuId, skuNum);
+    console.log(res);
+  }
 };
 const getters = {
   categoryView(state) {

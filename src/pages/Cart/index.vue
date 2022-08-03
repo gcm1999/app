@@ -13,36 +13,39 @@
           <div class="cart-th6">操作</div>
         </div>
         <div class="cart-body">
-          <ul class="cart-list">
+          <ul
+            class="cart-list"
+            v-for="(goodInfo, index) in cartInfoList"
+            :key="goodInfo.id"
+          >
             <li class="cart-list-con1">
               <input type="checkbox" name="chk_list" />
             </li>
             <li class="cart-list-con2">
-              <img src="./images/goods1.png" />
+              <img :src="goodInfo.imgUrl" />
               <div class="item-msg">
-                米家（MIJIA） 小米小白智能摄像机增强版
-                1080p高清360度全景拍摄AI增强
+                {{ goodInfo.skuName }}
               </div>
             </li>
-            <li class="cart-list-con3">
+            <!-- <li class="cart-list-con3">
               <div class="item-txt">语音升级款</div>
-            </li>
+            </li> -->
             <li class="cart-list-con4">
-              <span class="price">399.00</span>
+              <span class="price">{{ goodInfo.skuPrice }}</span>
             </li>
             <li class="cart-list-con5">
               <a href="javascript:void(0)" class="mins">-</a>
               <input
                 autocomplete="off"
                 type="text"
-                value="1"
+                :value="goodInfo.skuNum"
                 minnum="1"
                 class="itxt"
               />
               <a href="javascript:void(0)" class="plus">+</a>
             </li>
             <li class="cart-list-con6">
-              <span class="sum">399</span>
+              <span class="sum">{{ goodInfo.skuPrice * goodInfo.skuNum }}</span>
             </li>
             <li class="cart-list-con7">
               <a href="#none" class="sindelet">删除</a>
@@ -51,7 +54,7 @@
             </li>
           </ul>
 
-          <ul class="cart-list">
+          <!-- <ul class="cart-list">
             <li class="cart-list-con1">
               <input type="checkbox" name="chk_list" id="" value="" />
             </li>
@@ -123,7 +126,7 @@
               <br />
               <a href="#none">移到收藏</a>
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div>
       <div class="cart-tool">
@@ -151,8 +154,33 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Cart",
+  mounted() {
+    this.getCartInfoList();
+  },
+  methods: {
+    getCartInfoList() {
+      this.$store.dispatch("getCartList");
+    },
+  },
+  computed: {
+    ...mapGetters(["cartList"]),
+    cartInfoList() {
+      return this.cartList.cartInfoList || [];
+    },
+  },
+  // watch: {
+  //   cartInfoList: {
+  //     handler(newValue, oldValue) {
+  //       this.$nextTick(() => {
+
+  //       });
+  //     },
+  //   },
+  // },
 };
 </script>
 <style scoped>
@@ -205,10 +233,11 @@ export default {
   float: left;
 }
 .cart .cart-main .cart-body .cart-list .cart-list-con1 {
-  width: 4.1667%;
+  width: 14.1667%;
 }
 .cart .cart-main .cart-body .cart-list .cart-list-con2 {
-  width: 25%;
+  width: 35%;
+  text-align: center;
 }
 .cart .cart-main .cart-body .cart-list .cart-list-con2 img {
   width: 82px;
@@ -221,9 +250,9 @@ export default {
   margin: 0 10px;
   line-height: 18px;
 }
-.cart .cart-main .cart-body .cart-list .cart-list-con3 {
+/* .cart .cart-main .cart-body .cart-list .cart-list-con3 {
   width: 20.8333%;
-}
+} */
 .cart .cart-main .cart-body .cart-list .cart-list-con3 .item-txt {
   text-align: center;
 }
