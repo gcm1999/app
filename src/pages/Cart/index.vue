@@ -19,7 +19,12 @@
             :key="goodInfo.id"
           >
             <li class="cart-list-con1">
-              <input type="checkbox" name="chk_list" />
+              <input
+                type="checkbox"
+                name="chk_list"
+                :checked="(goodInfo.isChecked = '1')"
+                @click="changeChenced(goodInfo)"
+              />
             </li>
             <li class="cart-list-con2">
               <img :src="goodInfo.imgUrl" />
@@ -156,7 +161,10 @@
           <a href="#none">清除下柜商品</a>
         </div>
         <div class="money-box">
-          <div class="chosed">已选择 <span>0</span>件商品</div>
+          <div class="chosed">
+            已选择 <span>{{ cartInfoList.length }}</span
+            >件商品
+          </div>
           <div class="sumprice">
             <em>总价（不含运费） ：</em>
             <i class="summoney">0</i>
@@ -191,6 +199,16 @@ export default {
       try {
         await this.$store.dispatch("addCart", { skuId, skuNum });
         this.$store.dispatch("getCartList");
+      } catch (error) {}
+    },
+    async changeChenced(goodInfo) {
+      try {
+        let isChecked = goodInfo.ischecked == "1" ? "0" : "1";
+        await this.$store.dispatch("changeChecked", {
+          skuID: goodInfo.skuId,
+          isChecked,
+        });
+        this.getCartInfoList();
       } catch (error) {}
     },
   },

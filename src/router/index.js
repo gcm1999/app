@@ -43,7 +43,7 @@ router.beforeEach(async (to, from, next) => {
       }
       // next();
     }
-  } else if (to.path == "/cart") {
+  } else if (to.path == "/cart" || to.name == "addCartSucess") {
     alert("先登录吧大哥");
     next("/login");
   }

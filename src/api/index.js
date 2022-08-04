@@ -80,3 +80,9 @@ export const reqDeleteCart = (skuId) =>
     url: `/cart/deleteCart/${skuId}`,
     method: "delete",
   });
+// 切换商品选中状态
+export const reqChangeChecked = (skuID, isChecked) =>
+  requests({
+    method: "get",
+    url: `/cart/checkCart/${skuID}/${isChecked}`,
+  });

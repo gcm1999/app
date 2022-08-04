@@ -87,7 +87,9 @@ export default {
     async userLogin() {
       try {
         const { phone, password } = this;
+        // console.log(111);
         await this.$store.dispatch("userLogin", { phone, password });
+        // console.log(222);
         this.$router.push("/home");
       } catch (error) {
         alert(error.message);
