@@ -6,6 +6,7 @@ import Register from "@/pages/Register";
 import Detail from "@/pages/Detail";
 import Cart from "@/pages/Cart";
 import AddCartSucess from "@/pages/AddCartSucess";
+import Trade from "@/pages/Trade";
 //配置路由
 export default [
   {
@@ -45,6 +46,12 @@ export default [
     path: "/addCartSucess",
     component: AddCartSucess,
     name: "addCartSucess",
+    meta: { show: true },
+  },
+  {
+    path: "/trade",
+    component: Trade,
+    name: "trade",
     meta: { show: true },
   },
   //重定向:项目跑起来的时候重定向到首页

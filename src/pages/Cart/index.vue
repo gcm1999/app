@@ -23,7 +23,7 @@
                 type="checkbox"
                 name="chk_list"
                 :checked="(goodInfo.isChecked = '1')"
-                @change="changeChenced(goodInfo,$event)"
+                @change="changeChenced(goodInfo, $event)"
               />
             </li>
             <li class="cart-list-con2">
@@ -42,7 +42,7 @@
               <a
                 href="javascript:void(0)"
                 class="mins"
-                @click="updateSkuNum(goodInfo.skuId, -1)"
+                @click="updateSkuNum(goodInfo.skuId, goodInfo.skuNum, -1)"
                 >-</a
               >
               <input
@@ -56,7 +56,7 @@
               <a
                 href="javascript:void(0)"
                 class="plus"
-                @click="updateSkuNum(goodInfo.skuId, 1)"
+                @click="updateSkuNum(goodInfo.skuId, goodInfo.skuNum, 1)"
                 >+</a
               >
             </li>
@@ -195,9 +195,13 @@ export default {
         this.$store.dispatch("getCartList");
       } catch (error) {}
     },
-    async updateSkuNum(skuId, skuNum) {
+    async updateSkuNum(skuId, skuNum, count) {
       try {
-        await this.$store.dispatch("addCart", { skuId, skuNum });
+        if (count == -1 && skuNum == 1) {
+          // console.log(111);
+          count = 0;
+        }
+        await this.$store.dispatch("addCart", { skuId, skuNum:count });
         this.$store.dispatch("getCartList");
       } catch (error) {}
     },
