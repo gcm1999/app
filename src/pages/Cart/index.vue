@@ -23,7 +23,7 @@
                 type="checkbox"
                 name="chk_list"
                 :checked="(goodInfo.isChecked = '1')"
-                @click="changeChenced(goodInfo)"
+                @change="changeChenced(goodInfo,$event)"
               />
             </li>
             <li class="cart-list-con2">
@@ -201,9 +201,10 @@ export default {
         this.$store.dispatch("getCartList");
       } catch (error) {}
     },
-    async changeChenced(goodInfo) {
+    async changeChenced(goodInfo, e) {
+      console.log(e);
       try {
-        let isChecked = goodInfo.ischecked == "1" ? "0" : "1";
+        let isChecked = e.target.checked ? "1" : "0";
         await this.$store.dispatch("changeChecked", {
           skuID: goodInfo.skuId,
           isChecked,
