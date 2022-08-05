@@ -11,7 +11,7 @@ const mutations = {
 const actions = {
   async getCartList(context) {
     let res = await reqGetCartList();
-    console.log(res);
+    // console.log(res);
     if (res.code == 200) {
       context.commit("saveCartList", res.data);
       return "ok";
@@ -19,14 +19,14 @@ const actions = {
   },
   async deleteCart({ commit }, skuId) {
     let res = await reqDeleteCart(skuId);
-    console.log(res);
+    // console.log(res);
     if (res.code == 200) {
       return "ok";
     }
   },
   async changeChecked({ commit }, { skuID, isChecked }) {
     let res = await reqChangeChecked(skuID, isChecked);
-    console.log(res);
+    // console.log(res);
     if (res.code == 200) {
       return "ok";
     }

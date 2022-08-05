@@ -3,15 +3,15 @@
     <h3 class="title">填写并核对订单信息</h3>
     <div class="content">
       <h5 class="receive">收件人信息</h5>
-      <div class="address clearFix">
-        <span class="username selected">张三</span>
+      <div class="address clearFix" v-for="(userAddress,index) in userAddressList" :key="userAddress.index" v-if="!userAddress.consignee.match('你')">
+        <span class="username selected">{{userAddress.consignee}}</span>
         <p>
-          <span class="s1">北京市昌平区宏福科技园综合楼6层</span>
-          <span class="s2">15010658793</span>
-          <span class="s3">默认地址</span>
+          <span class="s1">{{userAddress.fullAddress}}</span>
+          <span class="s2">{{userAddress.phoneNum}}</span>
+          <span class="s3" v-show="userAddress.isDefault=='1'">默认地址</span>
         </p>
       </div>
-      <div class="address clearFix">
+      <!-- <div class="address clearFix">
         <span class="username selected">李四</span>
         <p>
           <span class="s1">北京市昌平区宏福科技园综合楼6层</span>
@@ -26,13 +26,12 @@
           <span class="s2">18012340987</span>
           <span class="s3">默认地址</span>
         </p>
-      </div>
+      </div> -->
       <div class="line"></div>
       <h5 class="pay">支付方式</h5>
       <div class="address clearFix">
         <span class="username selected">在线支付</span>
-        <span class="username" style="margin-left:5px;">货到付款</span>
-
+        <span class="username" style="margin-left: 5px">货到付款</span>
       </div>
       <div class="line"></div>
       <h5 class="pay">送货清单</h5>
@@ -47,11 +46,13 @@
         <h5>商品清单</h5>
         <ul class="list clearFix">
           <li>
-            <img src="./images/goods.png" alt="">
+            <img src="./images/goods.png" alt="" />
           </li>
           <li>
             <p>
-              Apple iPhone 6s (A1700) 64G 玫瑰金色 移动联通电信4G手机硅胶透明防摔软壳 本色系列</p>
+              Apple iPhone 6s (A1700) 64G 玫瑰金色
+              移动联通电信4G手机硅胶透明防摔软壳 本色系列
+            </p>
             <h4>7天无理由退货</h4>
           </li>
           <li>
@@ -62,11 +63,13 @@
         </ul>
         <ul class="list clearFix">
           <li>
-            <img src="./images/goods.png" alt="">
+            <img src="./images/goods.png" alt="" />
           </li>
           <li>
             <p>
-              Apple iPhone 6s (A1700) 64G 玫瑰金色 移动联通电信4G手机硅胶透明防摔软壳 本色系列</p>
+              Apple iPhone 6s (A1700) 64G 玫瑰金色
+              移动联通电信4G手机硅胶透明防摔软壳 本色系列
+            </p>
             <h4>7天无理由退货</h4>
           </li>
           <li>
@@ -78,8 +81,10 @@
       </div>
       <div class="bbs">
         <h5>买家留言：</h5>
-        <textarea placeholder="建议留言前先与商家沟通确认" class="remarks-cont"></textarea>
-
+        <textarea
+          placeholder="建议留言前先与商家沟通确认"
+          class="remarks-cont"
+        ></textarea>
       </div>
       <div class="line"></div>
       <div class="bill">
@@ -120,13 +125,32 @@
 </template>
 
 <script>
-  export default {
-    name: 'Trade',
-  }
+import { mapState } from "vuex";
+
+export default {
+  name: "Trade",
+  mounted() {
+    this.$store.dispatch("getUserAddressList");
+    this.$store.dispatch("getUserOrder");
+  },
+  computed: {
+    // ...mapState(["userAddressList", "userOrder"]),
+    ...mapState({
+      userAddressList: (state) => state.trade.userAddressList,
+      userOrder: (state) => state.trade.userOrder,
+    }),
+    // userAddressList() {
+    //   return this.$store.state.trade.userAddressList;
+    // },
+    // userOrder() {
+    //   return this.$store.state.trade.userOrder;
+    // },
+  },
+};
 </script>
 
 <style scoped>
-  .title {
+.title {
   width: 1200px;
   margin: 0 auto;
   font-size: 14px;
@@ -326,5 +350,4 @@
   color: #fff;
   background-color: #e1251b;
 }
-
 </style>

@@ -86,3 +86,16 @@ export const reqChangeChecked = (skuID, isChecked) =>
     method: "get",
     url: `/cart/checkCart/${skuID}/${isChecked}`,
   });
+// 获取用户地址
+export const reqGetUserAddressList = () =>
+  requests({
+    url: "/user/userAddress/auth/findUserAddressList",
+    method: "get",
+  });
+
+// 获取用户订单信息
+export const reqGetUserOrder = () =>
+  requests({
+    url: "/order/auth/trade",
+    method: "get",
+  });

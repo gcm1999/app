@@ -43,7 +43,7 @@
                     <em
                       v-for="c3 in c2.categoryChild"
                       :key="c3.categoryId"
-                      v-show="!c3.categoryName.match('你')"
+                      v-if="!c3.categoryName.match('你')"
                     >
                       <a
                         :data-categoryName="c3.categoryName"
