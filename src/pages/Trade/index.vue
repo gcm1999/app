@@ -191,7 +191,7 @@ export default {
       this.$API.reqSubmitOrder(tradeNo, data).then(
         (res) => {
           // console.log("res");
-          console.log(res);
+          // console.log(res);
           if (res.code == 200) {
             this.$router.push(`/pay?orderId=${res.data}`);
           }

@@ -12,11 +12,13 @@
           <div class="paymark">
             <span class="fl"
               >请您在提交订单<em class="orange time">4小时</em
-              >之内完成支付，超时订单会自动取消。订单号：<em>145687</em></span
+              >之内完成支付，超时订单会自动取消。订单号：<em>{{
+                orderId
+              }}</em></span
             >
             <span class="fr"
               ><em class="lead">应付金额：</em
-              ><em class="orange money">￥17,654</em></span
+              ><em class="orange money">￥{{orderInfo.totalFee}}</em></span
             >
           </div>
         </div>
@@ -96,11 +98,28 @@
 <script>
 export default {
   name: "Pay",
+  data() {
+    return {
+      orderInfo: {},
+    };
+  },
+  computed: {
+    orderId() {
+      return this.$route.query.orderId;
+    },
+  },
+  mounted() {
+    this.$API.reqGetOrderInfo(this.orderId).then((res) => {
+      // console.log(res);
+      if (res.code == 200) {
+        this.orderInfo = res.data;
+      }
+    });
+  },
 };
 </script>
 
 <style scoped>
-
 .pay-main {
   margin-bottom: 20px;
 }
