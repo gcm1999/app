@@ -7,6 +7,7 @@ import Detail from "@/pages/Detail";
 import Cart from "@/pages/Cart";
 import AddCartSucess from "@/pages/AddCartSucess";
 import Trade from "@/pages/Trade";
+import Pay from "@/pages/Pay";
 //配置路由
 export default [
   {
@@ -52,6 +53,12 @@ export default [
     path: "/trade",
     component: Trade,
     name: "trade",
+    meta: { show: true },
+  },
+  {
+    path: "/pay",
+    component: Pay,
+    name: "pay",
     meta: { show: true },
   },
   //重定向:项目跑起来的时候重定向到首页
