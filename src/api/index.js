@@ -99,3 +99,10 @@ export const reqGetUserOrder = () =>
     url: "/order/auth/trade",
     method: "get",
   });
+// 提交用户订单
+export const reqSubmitOrder = (tradeNo, data) =>
+  requests({
+    url: `/order/auth/submitOrder?tradeNo=${tradeNo}`,
+    method: "post",
+    data,
+  });

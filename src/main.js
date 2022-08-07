@@ -21,6 +21,8 @@ import "swiper/css/swiper.min.css";
 import router from "@/router";
 // 引入仓库
 import store from "@/store";
+import * as API from "@/api";
+// console.log(API);
 // // 测试
 // import { reqCategoryList } from '@/api';
 // reqCategoryList();
@@ -28,12 +30,13 @@ import store from "@/store";
 // Vue.config.productionTip = false
 // import {getReqSearchInfo} from "@/api/index";
 // console.log(getReqSearchInfo({}));
-let a;
+// let a;
 new Vue({
   render: (h) => h(App),
   // 全局事件总线$bus配置
   beforeCreate() {
     Vue.prototype.$bus = this;
+    Vue.prototype.$API = API;
   },
 
   //注册路由,KV一致省略V
