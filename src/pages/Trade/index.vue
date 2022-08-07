@@ -3,12 +3,20 @@
     <h3 class="title">填写并核对订单信息</h3>
     <div class="content">
       <h5 class="receive">收件人信息</h5>
-      <div class="address clearFix" v-for="(userAddress,index) in userAddressList" :key="userAddress.index" v-if="!userAddress.consignee.match('你')">
-        <span class="username selected">{{userAddress.consignee}}</span>
+      <div
+        class="address clearFix"
+        v-for="(userAddress, index) in userAddressList"
+        :key="userAddress.index"
+        v-if="!userAddress.consignee.match('你')"
+        @click="selectedAddress(index)"
+      >
+        <span class="username" :class="{ selected: index == currentIndex }">{{
+          userAddress.consignee
+        }}</span>
         <p>
-          <span class="s1">{{userAddress.fullAddress}}</span>
-          <span class="s2">{{userAddress.phoneNum}}</span>
-          <span class="s3" v-show="userAddress.isDefault=='1'">默认地址</span>
+          <span class="s1">{{ userAddress.fullAddress }}</span>
+          <span class="s2">{{ userAddress.phoneNum }}</span>
+          <span class="s3" v-show="userAddress.isDefault == '1'">默认地址</span>
         </p>
       </div>
       <!-- <div class="address clearFix">
@@ -44,20 +52,24 @@
       </div>
       <div class="detail">
         <h5>商品清单</h5>
-        <ul class="list clearFix" v-for="(detail,index) in userOrder.detailArrayList" :key="detail.id">
+        <ul
+          class="list clearFix"
+          v-for="(detail, index) in userOrder.detailArrayList"
+          :key="detail.id"
+        >
           <li>
             <img src="./images/goods.png" alt="" />
           </li>
           <li>
             <p>
-              {{detail.skuName}}
+              {{ detail.skuName }}
             </p>
             <h4>7天无理由退货</h4>
           </li>
           <li>
-            <h3>￥{{detail.orderPrice}}.00</h3>
+            <h3>￥{{ detail.orderPrice }}.00</h3>
           </li>
-          <li>X{{detail.skuNum}}</li>
+          <li>X{{ detail.skuNum }}</li>
           <li>有货</li>
         </ul>
         <!-- <ul class="list clearFix">
@@ -95,8 +107,11 @@
     <div class="money clearFix">
       <ul>
         <li>
-          <b><i>{{userOrder.totalNum}}</i>件商品，总商品金额</b>
-          <span>¥{{userOrder.totalAmount}}</span>
+          <b
+            ><i>{{ userOrder.totalNum }}</i
+            >件商品，总商品金额</b
+          >
+          <span>¥{{ userOrder.totalAmount }}</span>
         </li>
         <li>
           <b>返现：</b>
@@ -109,12 +124,14 @@
       </ul>
     </div>
     <div class="trade">
-      <div class="price">应付金额:　<span>¥{{userOrder.totalAmount}}</span></div>
+      <div class="price">
+        应付金额:　<span>¥{{ userOrder.totalAmount }}</span>
+      </div>
       <div class="receiveInfo">
         寄送至:
-        <span>北京市昌平区宏福科技园综合楼6层</span>
-        收货人：<span>张三</span>
-        <span>15010658793</span>
+        <span>{{ currentAddrss.fullAddress }}</span>
+        收货人：<span>{{ currentAddrss.consignee }}</span>
+        <span>{{ currentAddrss.phoneNum }}</span>
       </div>
     </div>
     <div class="sub clearFix">
@@ -128,6 +145,11 @@ import { mapState } from "vuex";
 
 export default {
   name: "Trade",
+  data() {
+    return {
+      currentIndex: 0,
+    };
+  },
   mounted() {
     this.$store.dispatch("getUserAddressList");
     this.$store.dispatch("getUserOrder");
@@ -138,12 +160,21 @@ export default {
       userAddressList: (state) => state.trade.userAddressList,
       userOrder: (state) => state.trade.userOrder,
     }),
+    currentAddrss() {
+      return this.userAddressList[this.currentIndex] || {};
+    },
     // userAddressList() {
     //   return this.$store.state.trade.userAddressList;
     // },
     // userOrder() {
     //   return this.$store.state.trade.userOrder;
     // },
+  },
+  methods: {
+    selectedAddress(index) {
+      // alert(111);
+      this.currentIndex = index;
+    },
   },
 };
 </script>

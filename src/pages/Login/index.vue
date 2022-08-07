@@ -14,7 +14,7 @@
           </ul>
 
           <div class="content">
-            <form>
+            <!-- <form> -->
               <div class="input-text clearFix">
                 <i></i>
                 <input v-model="phone" type="text" placeholder="手机号" />
@@ -39,7 +39,7 @@
                 <span class="forget">忘记密码？</span>
               </div>
               <button @click="userLogin" class="btn">登&nbsp;&nbsp;录</button>
-            </form>
+            <!-- </form> -->
             <div class="call clearFix">
               <ul>
                 <li><img src="./images/qq.png" alt="" /></li>
@@ -149,16 +149,16 @@ export default {
   border-top: none;
   padding: 18px;
 }
-.login-wrap .loginform .content form {
+.login-wrap .loginform .content {
   margin: 15px 0 18px 0;
   font-size: 12px;
   line-height: 18px;
 }
-.login-wrap .loginform .content form .input-text {
+.login-wrap .loginform .content .input-text {
   margin-bottom: 22px;
   position: relative;
 }
-.login-wrap .loginform .content form .input-text i {
+.login-wrap .loginform .content .input-text i {
   float: left;
   width: 37px;
   height: 32px;
@@ -168,10 +168,10 @@ export default {
   box-sizing: border-box;
   border-radius: 2px 0 0 2px;
 }
-.login-wrap .loginform .content form .input-text .pwd {
+.login-wrap .loginform .content .input-text .pwd {
   background-position: -72px -201px;
 }
-.login-wrap .loginform .content form .input-text input {
+.login-wrap .loginform .content .input-text input {
   width: 302px;
   height: 32px;
   box-sizing: border-box;
@@ -187,19 +187,19 @@ export default {
   border-radius: 0 2px 2px 0;
   outline: none;
 }
-.login-wrap .loginform .content form .input-text .error-msg {
+.login-wrap .loginform .content .input-text .error-msg {
   position: absolute;
   top: 100%;
   left: 40px;
   color: red;
 }
-.login-wrap .loginform .content form .setting label {
+.login-wrap .loginform .content .setting label {
   float: left;
 }
-.login-wrap .loginform .content form .setting .forget {
+.login-wrap .loginform .content .setting .forget {
   float: right;
 }
-.login-wrap .loginform .content form .btn {
+.login-wrap .loginform .content .btn {
   background-color: #e1251b;
   padding: 6px;
   border-radius: 0;
