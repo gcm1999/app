@@ -118,3 +118,9 @@ export const reqOrderStatus = (orderId) =>
     url: `/payment/weixin/queryPayStatus/${orderId}`,
     method: "get",
   });
+// 获取订单列表
+export const reqGetOrderList = (page, limit) =>
+  requests({
+    url: `/order/auth/${page}/${limit}`,
+    method: "get",
+  });
