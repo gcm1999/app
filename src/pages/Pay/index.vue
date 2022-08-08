@@ -105,6 +105,7 @@ export default {
     return {
       orderInfo: {},
       timer: null,
+      code: "",
     };
   },
   computed: {
@@ -137,12 +138,34 @@ export default {
         cancelButtonText: "支付遇到问题",
         confirmButtonText: "我已支付成功",
         showClose: false,
+        beforeClose: (action, instance, done) => {
+          console.log(action);
+          if (action == "cancel") {
+            clearInterval(this.timer);
+            this.timer = null;
+            alert("联系gcm");
+            done();
+          } else {
+            // if (this.code == 200) {
+            clearInterval(this.timer);
+            this.timer = null;
+            done();
+            this.$router.push("/paysuccess");
+            // }
+          }
+        },
       });
 
       if (!this.timer) {
         this.timer = setInterval(async () => {
           let res = await this.$API.reqOrderStatus(this.orderId);
           console.log(res);
+          this.code = res.code;
+          if (this.code == 200) {
+            clearInterval(this.timer);
+            this.timer = null;
+            this.$router.push("/paysuccess");
+          }
         }, 2000);
       }
     },
