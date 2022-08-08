@@ -1,11 +1,18 @@
 import Vue from "vue";
 import App from "./App.vue";
+
+import { Button, MessageBox } from "element-ui";
+
 // 分页器全局组件
 import Pagination from "@/components/Pagination";
 Vue.component(Pagination.name, Pagination);
 // 轮播图全局组件
 import Carouse from "@/components/Carouse";
 Vue.component(Carouse.name, Carouse);
+
+Vue.component(Button.name, Button);
+Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$alert = MessageBox.alert;
 
 //三级联动组件---全局组件
 import TypeNav from "@/components/TypeNav";

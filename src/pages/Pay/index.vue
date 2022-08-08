@@ -1,5 +1,6 @@
 <template>
   <div class="outer">
+    <!-- <el-button type="primary">测试</el-button> -->
     <div class="pay-main">
       <div class="pay-container">
         <div class="checkout-tit">
@@ -18,7 +19,7 @@
             >
             <span class="fr"
               ><em class="lead">应付金额：</em
-              ><em class="orange money">￥{{orderInfo.totalFee}}</em></span
+              ><em class="orange money">￥{{ orderInfo.totalFee }}</em></span
             >
           </div>
         </div>
@@ -78,7 +79,8 @@
           <div class="hr"></div>
 
           <div class="submit">
-            <router-link class="btn" to="/paysuccess">立即支付</router-link>
+            <!-- <router-link class="btn" to="/paysuccess">立即支付</router-link> -->
+            <a class="btn" @click="open">立即支付</a>
           </div>
           <div class="otherpay">
             <div class="step-tit">
@@ -96,11 +98,13 @@
 </template>
 
 <script>
+import QRCode from "qrcode";
 export default {
   name: "Pay",
   data() {
     return {
       orderInfo: {},
+      timer: null,
     };
   },
   computed: {
@@ -115,6 +119,33 @@ export default {
         this.orderInfo = res.data;
       }
     });
+  },
+  methods: {
+    async open() {
+      // QRCode.toDataURL(this.orderInfo.codeUrl)
+      //   .then((url) => {
+      //     console.log(url);
+      //   })
+      //   .catch((err) => {
+      //     console.error(err);
+      //   });
+      let url = await QRCode.toDataURL(this.orderInfo.codeUrl);
+      this.$alert(`<img src=${url} />`, "请使用微信扫码支付", {
+        dangerouslyUseHTMLString: true,
+        center: true,
+        showCancelButton: true,
+        cancelButtonText: "支付遇到问题",
+        confirmButtonText: "我已支付成功",
+        showClose: false,
+      });
+
+      if (!this.timer) {
+        this.timer = setInterval(async () => {
+          let res = await this.$API.reqOrderStatus(this.orderId);
+          console.log(res);
+        }, 2000);
+      }
+    },
   },
 };
 </script>
