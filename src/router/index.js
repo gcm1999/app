@@ -43,9 +43,17 @@ router.beforeEach(async (to, from, next) => {
       }
       // next();
     }
-  } else if (to.path == "/cart" || to.name == "addCartSucess") {
-    alert("先登录吧大哥");
-    next("/login");
+  } else {
+    if (
+      to.path.indexOf("cart") != -1 ||
+      to.path.indexOf("center") != -1 ||
+      to.path.indexOf("pay") != -1
+    ) {
+      alert("先登录吧大哥");
+      next("/login?redirect="+to.path);
+      // next("login");
+      // router.push("/login&redirect=" + to.path);
+    }
   }
 });
 

@@ -15,30 +15,26 @@
 
           <div class="content">
             <!-- <form> -->
-              <div class="input-text clearFix">
-                <i></i>
-                <input v-model="phone" type="text" placeholder="手机号" />
-                <span class="error-msg">错误提示信息</span>
-              </div>
+            <div class="input-text clearFix">
+              <i></i>
+              <input v-model="phone" type="text" placeholder="手机号" />
+              <span class="error-msg">错误提示信息</span>
+            </div>
 
-              <div class="input-text clearFix">
-                <i class="pwd"></i>
-                <input
-                  v-model="password"
-                  type="text"
-                  placeholder="请输入密码"
-                />
-                <span class="error-msg">错误提示信息</span>
-              </div>
+            <div class="input-text clearFix">
+              <i class="pwd"></i>
+              <input v-model="password" type="text" placeholder="请输入密码" />
+              <span class="error-msg">错误提示信息</span>
+            </div>
 
-              <div class="setting clearFix">
-                <label class="checkbox inline">
-                  <input name="m1" type="checkbox" value="2" checked="" />
-                  自动登录
-                </label>
-                <span class="forget">忘记密码？</span>
-              </div>
-              <button @click="userLogin" class="btn">登&nbsp;&nbsp;录</button>
+            <div class="setting clearFix">
+              <label class="checkbox inline">
+                <input name="m1" type="checkbox" value="2" checked="" />
+                自动登录
+              </label>
+              <span class="forget">忘记密码？</span>
+            </div>
+            <button @click="userLogin" class="btn">登&nbsp;&nbsp;录</button>
             <!-- </form> -->
             <div class="call clearFix">
               <ul>
@@ -74,8 +70,6 @@
   </div>
 </template>
 <script>
-import router from "@/router";
-
 export default {
   data() {
     return {
@@ -90,7 +84,8 @@ export default {
         // console.log(111);
         await this.$store.dispatch("userLogin", { phone, password });
         // console.log(222);
-        this.$router.push("/home");
+        let path = this.$route.query.redirect || "/home";
+        this.$router.push(path);
       } catch (error) {
         alert(error.message);
       }
