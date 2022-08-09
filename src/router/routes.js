@@ -13,84 +13,90 @@ import Center from "@/pages/Center";
 //引入二级路由组件
 import MyOrder from "@/pages/Center/MyOrder";
 import GroupOrder from "@/pages/Center/GroupOrder";
+
+// 实现路由懒加载
+// const foo = () => {
+//   console.log("search");
+//   return import("@/pages/Search");
+// };
 //配置路由
 export default [
   {
     path: "/home",
-    component: Home,
+    component: () => import("@/pages/Home"),
     name: "home",
     //   配置路由元信息
     meta: { show: true },
   },
   {
     path: "/search/:keyword?",
-    component: Search,
+    component: () => import("@/pages/Search"),
     meta: { show: true },
     name: "search",
   },
   {
     path: "/login",
-    component: Login,
+    component: () => import("@/pages/Login"),
     meta: { show: false },
   },
   {
     path: "/register",
-    component: Register,
+    component: () => import("@/pages/Register"),
     meta: { show: false },
   },
   {
     path: "/detail/:skuid",
-    component: Detail,
+    component: () => import("@/pages/Detail"),
     meta: { show: true },
   },
   {
     path: "/cart",
-    component: Cart,
+    component: () => import("@/pages/Cart"),
     meta: { show: true },
   },
   {
     path: "/addCartSucess",
-    component: AddCartSucess,
+    component: () => import("@/pages/AddCartSucess"),
     name: "addCartSucess",
     meta: { show: true },
   },
   {
     path: "/trade",
-    component: Trade,
+    component: () => import("@/pages/Trade"),
     name: "trade",
     meta: { show: true },
   },
   {
     path: "/pay",
-    component: Pay,
+    component: () => import("@/pages/Pay"),
     name: "pay",
     meta: { show: true },
   },
   {
     path: "/paysuccess",
-    component: PaySuccess,
+    component: () => import("@/pages/PaySuccess"),
     name: "paysuccess",
     meta: { show: true },
   },
   {
     path: "/center",
-    component: Center,
+    component: () => import("@/pages/Center"),
     name: "center",
     meta: { show: true },
     // 二级路由组件
     children: [
       {
         path: "/center/myorder",
-        component: MyOrder,
+        component: () => import("@/pages/Center/MyOrder"),
       },
       {
         path: "/center/grouporder",
-        component: GroupOrder,
+        component: () => import("@/pages/Center/GroupOrder"),
       },
       // 重定向
       {
         path: "/center",
-        redirect:"/center/myorder"
+        redirect: "/center/myorder",
       },
     ],
   },
