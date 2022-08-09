@@ -14,6 +14,14 @@ Vue.component(Button.name, Button);
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
 
+import VueLazyload from "vue-lazyload";
+
+const loadimage = require("./assets/1.gif");
+// import loadimage from "@/assets/1.gif"
+Vue.use(VueLazyload, {
+  loading: loadimage,
+});
+
 //三级联动组件---全局组件
 import TypeNav from "@/components/TypeNav";
 // 第一个参数:全局组件的名字 第二个参数:哪一个组件

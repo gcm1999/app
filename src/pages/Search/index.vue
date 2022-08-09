@@ -236,7 +236,7 @@
                   <div class="p-img">
                     <a target="_blank">
                       <!-- <img src="./images/mobile01.png" /> -->
-                      <img :src="good.defaultImg" />
+                      <img v-lazy="good.defaultImg" />
                     </a>
                   </div>
                   <div class="price">
